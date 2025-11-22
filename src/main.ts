@@ -94,6 +94,12 @@ class TemplateEntityRow extends LitElement {
       bindActionHandler(this.shadowRoot.querySelector("state-badge"), options);
       bindActionHandler(this.shadowRoot.querySelector(".info"), options);
     }
+    const condition = this.config.condition === undefined ? true
+      : String(this.config.condition).toLowerCase() === "true";
+    this.dispatchEvent(
+      new CustomEvent("row-visibility-changed", 
+        { detail: { row: this, value: condition }, bubbles: true, composed: true }) 
+    );
   }
 
   _actionHandler(ev) {
@@ -102,10 +108,10 @@ class TemplateEntityRow extends LitElement {
 
   protected async updated(changedProperties: PropertyValues) {
     if (changedProperties.has("config")) {
-      const oldCondition = changedProperties.get("config")?.condition !== undefined &&
-        String(changedProperties.get("config")?.condition).toLowerCase() === "true";
-      const newCondition = this.config.condition !== undefined &&
-        String(this.config.condition).toLowerCase() === "true";
+      const oldCondition = changedProperties.get("config")?.condition === undefined ? true
+        : String(changedProperties.get("config")?.condition).toLowerCase() === "true";
+      const newCondition = this.config.condition === undefined ? true
+        : String(this.config.condition).toLowerCase() === "true";
       if (oldCondition !== newCondition) {
         this.dispatchEvent(
           new CustomEvent("row-visibility-changed", 
