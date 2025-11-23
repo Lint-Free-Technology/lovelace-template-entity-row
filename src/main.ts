@@ -134,15 +134,15 @@ class TemplateEntityRow extends LitElement {
         ? this.config.icon || "no:icon"
         : undefined;
     const image = this.config.image;
-    let color = this.config.color;
+    const color = this.config.color;
+    const stateColor = this.config.state_color ?? color === undefined;
 
     const name =
       this.config.name ??
       entity?.attributes?.friendly_name ??
       entity?.entity_id;
     const secondary = this.config.secondary;
-    const state = this.config.state ?? base?.state;
-    let stateColor = true;
+    entity.state = this.config.state ?? base?.state;
 
     const active = this.config.active ?? false;
     if (active) {
@@ -151,7 +151,6 @@ class TemplateEntityRow extends LitElement {
     }
     if (this.config.active === false) {
       entity.state = "off";
-      stateColor = false;
     }
 
     const hidden =
@@ -174,7 +173,7 @@ class TemplateEntityRow extends LitElement {
           .overrideImage=${image}
           .color=${color}
           class=${classMap({ pointer: has_action })}
-          ?stateColor=${stateColor}
+          .stateColor=${stateColor}
         ></state-badge>
         <div
           class=${classMap({ info: true, pointer: has_action })}
@@ -187,7 +186,7 @@ class TemplateEntityRow extends LitElement {
           ${show_toggle
             ? html`<ha-entity-toggle .hass=${this.hass} .stateObj=${entity}>
               </ha-entity-toggle>`
-            : state}
+            : entity.state}
         </div>
       </div>
       <div id="staging">
