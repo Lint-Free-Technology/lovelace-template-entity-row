@@ -83,13 +83,13 @@ class TemplateEntityRow extends LitElement {
     this._action = gen_row._handleAction;
     const options = {
       hasHold: this._config.hold_action !== undefined,
-      hasDoubleClick: this._config.hold_action !== undefined,
+      hasDoubleClick: this._config.double_tap_action !== undefined,
     };
     if (
-      this.config.entity ||
-      this.config.tap_action ||
-      this.config.hold_action ||
-      this.config.double_tap_action
+      (this.config.entity && String(this.config.tap_action?.action).toLowerCase() != "none") ||
+      (this.config.tap_action && String(this.config.tap_action?.action).toLowerCase() != "none") ||
+      (this.config.hold_action && String(this.config.hold_action?.action).toLowerCase() != "none") ||
+      (this.config.double_tap_action && String(this.config.double_tap_action?.action).toLowerCase() != "none")
     ) {
       bindActionHandler(this.shadowRoot.querySelector("state-badge"), options);
       bindActionHandler(this.shadowRoot.querySelector(".info"), options);
@@ -158,10 +158,10 @@ class TemplateEntityRow extends LitElement {
       String(this.config.condition).toLowerCase() !== "true";
     const show_toggle = this.config.toggle && this.config.entity;
     const has_action =
-      this.config.entity ||
-      this.config.tap_action ||
-      this.config.hold_action ||
-      this.config.double_tap_action;
+      (this.config.entity && String(this.config.tap_action?.action).toLowerCase() != "none") ||
+      (this.config.tap_action && String(this.config.tap_action?.action).toLowerCase() != "none") ||
+      (this.config.hold_action && String(this.config.hold_action?.action).toLowerCase() != "none") ||
+      (this.config.double_tap_action && String(this.config.double_tap_action?.action).toLowerCase() != "none")
 
     return html`
       <div id="wrapper" class="${hidden ? "hidden" : ""}">
