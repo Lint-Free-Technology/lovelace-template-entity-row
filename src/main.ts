@@ -5,6 +5,7 @@ import { bindActionHandler } from "./helpers/action";
 import pjson from "../package.json";
 import { bind_template, hasTemplate } from "./helpers/templates";
 import { hass } from "./helpers/hass";
+import { getJSTemplateRenderer, isJSTemplate, renderJSTemplate, trackJSTemplate } from "./helpers/javascript-templates";
 
 const OPTIONS = [
   "icon",
@@ -24,6 +25,7 @@ const OPTIONS = [
   "tap_action",
   "hold_action",
   "double_tap_action",
+  "state_color"
 ];
 
 const LOCALIZE_PATTERN = /_\([^)]*\)/g;
@@ -42,12 +44,41 @@ class TemplateEntityRow extends LitElement {
   @property() hass;
   @property() config; // Rendered configuration of the row to display
   @property() _action;
+  @property() haJS;
 
   setConfig(config) {
     this._config = { ...config };
     this.config = { ...this._config };
 
+    this.haJS = getJSTemplateRenderer( {config: this._config} );
+    this.bind_variables();
     this.bind_templates();
+  }
+
+  async bind_variables() {
+    const hs = await hass();
+    if (!this._config.variables) return;
+    for (const [k, v] of Object.entries(this._config.variables)) {
+      if (isJSTemplate(v)) {
+        await trackJSTemplate(
+          this.haJS,
+          (res) => {
+            if (typeof res === "string") res = translate(hs, res);
+            renderJSTemplate(
+              this.haJS,
+              `[[[ ref('${k}').value = JSON.parse('${JSON.stringify(res)}'); ]]]`,
+            );
+          },
+          v as string,
+          { config: this._config }
+        );
+      } else {
+        renderJSTemplate(
+          this.haJS,
+          `[[[ ref('${k}').value = JSON.parse('${JSON.stringify(v)}'); ]]]`,
+        );        
+      }
+    }
   }
 
   async bind_templates() {
@@ -64,6 +95,19 @@ class TemplateEntityRow extends LitElement {
           },
           this._config[k],
           { config: this._config }
+        );
+      } else if (isJSTemplate(this._config[k])) {
+        trackJSTemplate(
+          this.haJS,
+          (res) => {
+            const state = { ...this.config };
+            if (typeof res === "string") res = translate(hs, res);
+            state[k] = res;
+            this.config = state;
+          },
+          this._config[k],
+          { config: this._config },
+          Object.keys(this._config.variables || {})
         );
       } else if (typeof this._config[k] === "string") {
         this.config[k] = translate(hs, this._config[k]);
