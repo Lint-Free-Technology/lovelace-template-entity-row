@@ -43,3 +43,12 @@ export async function trackJSTemplate(
     renderer.trackTemplate(template, callback, { variables });
   });
 }
+
+export async function setJSTemplateRef(
+  templatesRenderer: Promise<HomeAssistantJavaScriptTemplatesRenderer>, 
+  refName: string, 
+  refValue: unknown): Promise<void> {
+    templatesRenderer.then(renderer => {
+    renderer.refs[refName] = refValue;
+  });
+}

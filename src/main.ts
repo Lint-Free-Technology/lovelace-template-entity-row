@@ -5,7 +5,7 @@ import { bindActionHandler } from "./helpers/action";
 import pjson from "../package.json";
 import { bind_template, hasTemplate } from "./helpers/templates";
 import { hass } from "./helpers/hass";
-import { getJSTemplateRenderer, isJSTemplate, renderJSTemplate, trackJSTemplate } from "./helpers/javascript-templates";
+import { getJSTemplateRenderer, isJSTemplate, renderJSTemplate, setJSTemplateRef, trackJSTemplate } from "./helpers/javascript-templates";
 
 const OPTIONS = [
   "icon",
@@ -70,19 +70,20 @@ class TemplateEntityRow extends LitElement {
         trackJSTemplate(
           this.haJS,
           (res) => {
-            if (typeof res === "string") res = translate(hs, res);
-            renderJSTemplate(
-              this.haJS,
-              `[[[ variables.${k} = JSON.parse('${JSON.stringify(res)}') ]]]`,
+            setJSTemplateRef(
+              this.haJS, 
+              k, 
+              typeof res === "string" ? translate(hs, res) : res
             );
           },
           v as string,
           { config: this._config }
         );
       } else {
-        renderJSTemplate(
+        setJSTemplateRef(
           this.haJS,
-          `[[[ variables.${k} = JSON.parse('${translate(hs, JSON.stringify(v))}') ]]]`,
+          k,
+          typeof v === "string" ? translate(hs, v) : v
         );
       }
     }
