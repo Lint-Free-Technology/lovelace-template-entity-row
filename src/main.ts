@@ -49,8 +49,15 @@ class TemplateEntityRow extends LitElement {
   setConfig(config) {
     this._config = { ...config };
     this.config = { ...this._config };
+    const refs = Object.keys(this._config.variables || {}).reduce(
+      (obj, key) => {
+        obj[key] = undefined;
+        return obj;
+      },
+      {}
+    );
 
-    this.haJS = getJSTemplateRenderer( {config: this._config} );
+    this.haJS = getJSTemplateRenderer( {config: this._config }, refs );
     this.bind_variables();
     this.bind_templates();
   }
@@ -60,13 +67,13 @@ class TemplateEntityRow extends LitElement {
     if (!this._config.variables) return;
     for (const [k, v] of Object.entries(this._config.variables)) {
       if (isJSTemplate(v)) {
-        await trackJSTemplate(
+        trackJSTemplate(
           this.haJS,
           (res) => {
             if (typeof res === "string") res = translate(hs, res);
             renderJSTemplate(
               this.haJS,
-              `[[[ ref('${k}').value = JSON.parse('${JSON.stringify(res)}'); ]]]`,
+              `[[[ variables.${k} = JSON.parse('${JSON.stringify(res)}') ]]]`,
             );
           },
           v as string,
@@ -75,8 +82,8 @@ class TemplateEntityRow extends LitElement {
       } else {
         renderJSTemplate(
           this.haJS,
-          `[[[ ref('${k}').value = JSON.parse('${JSON.stringify(v)}'); ]]]`,
-        );        
+          `[[[ variables.${k} = JSON.parse('${translate(hs, JSON.stringify(v))}') ]]]`,
+        );
       }
     }
   }
@@ -106,8 +113,7 @@ class TemplateEntityRow extends LitElement {
             this.config = state;
           },
           this._config[k],
-          { config: this._config },
-          Object.keys(this._config.variables || {})
+          { config: this._config }
         );
       } else if (typeof this._config[k] === "string") {
         this.config[k] = translate(hs, this._config[k]);
