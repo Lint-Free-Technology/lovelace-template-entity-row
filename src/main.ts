@@ -121,14 +121,14 @@ class TemplateEntityRow extends LitElement {
       entity?.entity_id;
     const secondary = this.config.secondary;
     entity.state = this.config.state ?? base?.state;
+    const state = entity.state;
     const stateColor = entity.state ? this.config.state_color ?? color === undefined : false;
 
-    const active = this.config.active ?? false;
+    const active = this.config.active !== undefined ? this.config.active : undefined;
     if (active) {
       entity.attributes.brightness = 255;
       entity.state = "on";
-    }
-    if (this.config.active === false) {
+    } else if (active === false) {
       entity.state = "off";
     }
 
@@ -165,7 +165,7 @@ class TemplateEntityRow extends LitElement {
           ${show_toggle
             ? html`<ha-entity-toggle .hass=${this.hass} .stateObj=${entity}>
               </ha-entity-toggle>`
-            : entity.state}
+            : state}
         </div>
       </div>
       <div id="staging">
