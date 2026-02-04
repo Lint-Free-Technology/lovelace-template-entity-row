@@ -6,7 +6,7 @@ Forked from [thomasloven/lovelace-template-entity-row](https://github.com/thomas
 
 Display whatever you want in an entities card row.
 
-For installation instructions [see this guide](https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins).
+To install via HACS, add this repo [https://github.com/Lint-Free-Technology/lovelace-template-entity-row](https://github.com/Lint-Free-Technology/lovelace-template-entity-row) as a [custom HACS repository](https://www.hacs.xyz/docs/faq/custom_repositories/).
 
 Install `template-entity-row.js` as a `module`.
 
