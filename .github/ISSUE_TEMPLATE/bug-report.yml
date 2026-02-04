@@ -69,7 +69,7 @@ body:
           required: true
         - label: Have made sure I am using the latest version of the plugin.
           required: true
-        - label: Have followed the troubleshooting steps of the "Common Problems" section of https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins.
+        - label: Have checked the FAQ section in the README.
           required: true
         - label: Understand that failure to follow the template above may increase the time required to handle my bug-report, or cause it to be closed without further action.
           required: true
