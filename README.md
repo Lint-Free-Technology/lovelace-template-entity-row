@@ -95,7 +95,7 @@ double_tap_action:
   action: toggle
 ```
 
-# FAQ
+## FAQ
 
 ### Why does this look weird?
 
