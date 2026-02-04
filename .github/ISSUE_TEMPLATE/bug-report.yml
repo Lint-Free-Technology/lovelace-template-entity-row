@@ -73,5 +73,3 @@ body:
           required: true
         - label: Understand that failure to follow the template above may increase the time required to handle my bug-report, or cause it to be closed without further action.
           required: true
-      
-      
