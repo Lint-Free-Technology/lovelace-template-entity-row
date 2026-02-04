@@ -21,9 +21,9 @@ jobs:
           stale-issue-label: "stale"
           exempt-issue-labels: "no-stale,pinned,feature-request,feature request"
           stale-issue-message: >
-            This issue has been automatically marked as stale because it has not had recent activity. 
-            It will be closed if no further activity occurs. 
-            
+            This issue has been automatically marked as stale because it has not had recent activity.
+            It will be closed if no further activity occurs.
+
             Thank you for your contributions.
           stale-pr-label: "stale"
           exempt-pr-labels: "no-stale"
