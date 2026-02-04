@@ -109,7 +109,3 @@ Because "toggle" means a toggle. It's the simplest possible way to control an en
 This may happen if you use the GUI editor to edit a template based value. Since Home Assistant redraws the row every time you make any change to the configuration in the GUI editor, it will try to render the template every time you push a key.
 Since the template will be invalid for most of the time while you're editing it, you will get a lot of errors. \
 There's unfortunately nothing I can easily do about this behavior.
-
----
-
-<a href="https://www.buymeacoffee.com/uqD6KHCdJ" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/white_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
