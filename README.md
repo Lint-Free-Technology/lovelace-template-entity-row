@@ -49,6 +49,7 @@ entities:
 - `toggle` if this evaluates to "true" a toggle is shown instead of the state. The toggle is connected to the `entity`. This will only show a toggle, nothing else. No sliders, no dropdowns, no media controls. `toggle` means Toggle.
 - `tap_action`, `hold_action`, `double_tap_action`: see below.
 - `color` the CSS color of the icon.
+- `state_color` whether the icon color will respond to state changes. Use if you are setting `state` but don't wish for the icon to change color based on state. e.g. If your entity had device class battery and you wish for icons to change, but not color. If `state_color` is not set, but `color` is set, `state_color` will be set to false. In this case use `color` template if you wish for the icon to show different colors.
 
 All options accept [jinja2 templates](https://www.home-assistant.io/docs/configuration/templating/).
 
@@ -94,7 +95,7 @@ double_tap_action:
   action: toggle
 ```
 
-# FAQ
+## FAQ
 
 ### Why does this look weird?
 
