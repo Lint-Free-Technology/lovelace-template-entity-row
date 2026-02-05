@@ -9,7 +9,7 @@ const dev = process.env.ROLLUP_WATCH;
 export default {
   input: "src/main.ts",
   output: {
-    file: "template-entity-row.js",
+    file: "dist/template-entity-row.js",
     format: "es",
   },
   plugins: [
