@@ -1,6 +1,5 @@
 {
     "name": "template-entity-row",
     "render_readme": true,
-    "homeassistant": "0.107.0b1",
-    "filename": "dist/template-entity-row.js"
+    "homeassistant": "0.107.0b1"
 }
