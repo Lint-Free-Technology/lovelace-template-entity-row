@@ -26,6 +26,8 @@ presetConfig:
       section: 🐞 Bug Fixes
     - type: docs
       section: 📔 Documentation
+    - type: deps
+      section: 📦 Dependency Upgrades
     - type: chore
       section: ⚙️ Miscellaneous
     - type: refactor
@@ -50,6 +52,8 @@ releaseRules:
     release: patch
   - type: docs
     release: patch
+  - type: deps
+    release: patch
   - type: perf
     release: patch
   - type: refactor
@@ -68,28 +72,3 @@ releaseRules:
     release: major
   - scope: breaking
     release: major
-
-# Custom changelog categories based on labels
-changelog:
-  categories:
-    - title: ⚠️ Breaking Changes
-      labels:
-        - major-update
-        - breaking-change
-    - title: ⭐ New Features
-      labels:
-        - enhancement
-        - feature
-    - title: 🐞 Bug Fixes
-      labels:
-        - bugfix
-        - bug
-    - title: 📦 Dependency Upgrades
-      labels:
-        - dependencies
-    - title: 📔 Documentation
-      labels:
-        - documentation
-    - title: ⚙️ Miscellaneous
-      labels:
-        - miscellaneous
