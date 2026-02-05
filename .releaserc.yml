@@ -1,0 +1,95 @@
+branches:
+  - main
+  - master
+
+plugins:
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/release-notes-generator"
+  - - "@semantic-release/changelog"
+    - changelogFile: CHANGELOG.md
+  - - "@semantic-release/npm"
+    - npmPublish: false
+  - - "@semantic-release/git"
+    - assets:
+        - CHANGELOG.md
+        - package.json
+        - package-lock.json
+      message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+  - "@semantic-release/github"
+
+preset: conventionalcommits
+presetConfig:
+  types:
+    - type: feat
+      section: ⭐ New Features
+    - type: fix
+      section: 🐞 Bug Fixes
+    - type: docs
+      section: 📔 Documentation
+    - type: chore
+      section: ⚙️ Miscellaneous
+    - type: refactor
+      section: ⚙️ Miscellaneous
+    - type: test
+      section: ⚙️ Miscellaneous
+    - type: build
+      section: ⚙️ Miscellaneous
+    - type: ci
+      section: ⚙️ Miscellaneous
+    - type: perf
+      section: ⭐ New Features
+    - type: revert
+      section: 🐞 Bug Fixes
+    - type: style
+      section: ⚙️ Miscellaneous
+
+releaseRules:
+  - type: feat
+    release: minor
+  - type: fix
+    release: patch
+  - type: docs
+    release: patch
+  - type: perf
+    release: patch
+  - type: refactor
+    release: patch
+  - type: chore
+    release: false
+  - type: test
+    release: false
+  - type: style
+    release: false
+  - type: ci
+    release: false
+  - type: build
+    release: false
+  - breaking: true
+    release: major
+  - scope: breaking
+    release: major
+
+# Custom changelog categories based on labels
+changelog:
+  categories:
+    - title: ⚠️ Breaking Changes
+      labels:
+        - major-update
+        - breaking-change
+    - title: ⭐ New Features
+      labels:
+        - enhancement
+        - feature
+    - title: 🐞 Bug Fixes
+      labels:
+        - bugfix
+        - bug
+    - title: 📦 Dependency Upgrades
+      labels:
+        - dependencies
+    - title: 📔 Documentation
+      labels:
+        - documentation
+    - title: ⚙️ Miscellaneous
+      labels:
+        - miscellaneous
