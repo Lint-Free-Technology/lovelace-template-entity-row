@@ -1,6 +1,6 @@
 branches:
-  - main
   - master
+  - dev
 
 plugins:
   - "@semantic-release/commit-analyzer"
