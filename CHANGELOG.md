@@ -1,3 +1,9 @@
+## [2.0.0-beta.6](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2026-02-08)
+
+### 🐞 Bug Fixes
+
+* Semantic release CI build order ([044117d](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/044117dd66a0a0543c36a3d1ca713eca1bd69384))
+
 ## [2.0.0-beta.5](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2026-02-08)
 
 ### 🐞 Bug Fixes
