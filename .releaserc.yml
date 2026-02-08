@@ -19,7 +19,7 @@ plugins:
   - - "@semantic-release/github"
     - assets:
         - path: "dist/template-entity-row.js"
-          label: "Template Entity Row"
+          label: "template-entity-row.js"
 
 preset: conventionalcommits
 presetConfig:
