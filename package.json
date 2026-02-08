@@ -11,10 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com:thomasloven/lovelace-template-entity-row"
+    "url": "git@github.com:lint-free-technology/lovelace-template-entity-row"
   },
   "keywords": [],
   "author": "Thomas Lovén",
+  "contributors": [ "Darryn Capes-Davis" ],
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.23.6",
