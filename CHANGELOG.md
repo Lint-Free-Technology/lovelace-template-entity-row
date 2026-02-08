@@ -1,3 +1,9 @@
+## [2.0.0-beta.2](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2026-02-08)
+
+### 🐞 Bug Fixes
+
+* Update HACS to match CI ([427a67e](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/427a67e95556c50d08419f27b036b81e2f9dff09))
+
 ## [2.0.0-beta.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v1.4.1...v2.0.0-beta.1) (2026-02-08)
 
 ### ⭐ New Features
