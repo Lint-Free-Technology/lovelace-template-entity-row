@@ -1,3 +1,9 @@
+## [2.0.0-beta.3](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2026-02-08)
+
+### 🐞 Bug Fixes
+
+* Fix build CI asset naming ([818ed63](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/818ed63aa416280707f45a6e4ba4c3ecd40f4b0a))
+
 ## [2.0.0-beta.2](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2026-02-08)
 
 ### 🐞 Bug Fixes
