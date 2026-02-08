@@ -1,2 +1,4 @@
 node_modules/
 .vscode/settings.json
+dist/
+template-entity-row.js
