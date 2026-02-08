@@ -1,0 +1,51 @@
+## [2.0.0-beta.7](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2026-02-08)
+
+### 🐞 Bug Fixes
+
+* CI Build ([b702ffa](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/b702ffa80a87cebec156ab4c57e0fe9f11db94f9))
+
+## [2.0.0-beta.6](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2026-02-08)
+
+### 🐞 Bug Fixes
+
+* Semantic release CI build order ([044117d](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/044117dd66a0a0543c36a3d1ca713eca1bd69384))
+
+## [2.0.0-beta.5](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2026-02-08)
+
+### 🐞 Bug Fixes
+
+* Update CI build process to build post semantic release ([f09c802](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/f09c802c9ff7e2487b11f21af9c1cb597f1e64e3))
+
+## [2.0.0-beta.4](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2026-02-08)
+
+### 🐞 Bug Fixes
+
+* **HACS:** Rebuild HACS compliant release ([8b5c4fc](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/8b5c4fce170a0aa3228df8cf3f7eb05af4686b0b))
+
+### ⚙️ Miscellaneous
+
+* HACS file update to suit build CI ([7d74dc1](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/7d74dc125a403663cb6d21a82c8f9fa315b4d7e9))
+* Update HACS in master with filename ([18909fc](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/18909fc65c619bdb10e18f217ad19715daf83153))
+
+## [2.0.0-beta.3](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2026-02-08)
+
+### 🐞 Bug Fixes
+
+* Fix build CI asset naming ([818ed63](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/818ed63aa416280707f45a6e4ba4c3ecd40f4b0a))
+
+## [2.0.0-beta.2](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2026-02-08)
+
+### 🐞 Bug Fixes
+
+* Update HACS to match CI ([427a67e](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/427a67e95556c50d08419f27b036b81e2f9dff09))
+
+## [2.0.0-beta.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v1.4.1...v2.0.0-beta.1) (2026-02-08)
+
+### ⭐ New Features
+
+* **major:** Manual commit for semantic major release ([17cf808](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/17cf808bb60e05fa4964874ab212ed53f2e03483))
+* Manual commit for semantic major release ([21211e7](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/21211e74e32ae0ed4dcd13637964db2563d94157))
+
+### ⚙️ Miscellaneous
+
+* Environment update ([72c44ad](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/72c44ad2d1da1f0de57d9be8e150a74e90bf8bed))

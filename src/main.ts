@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css, PropertyValues } from "lit";
 import { property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { bindActionHandler } from "./helpers/action";
@@ -83,25 +83,46 @@ class TemplateEntityRow extends LitElement {
     this._action = gen_row._handleAction;
     const options = {
       hasHold: this._config.hold_action !== undefined,
-      hasDoubleClick: this._config.hold_action !== undefined,
+      hasDoubleClick: this._config.double_tap_action !== undefined,
     };
     if (
-      this.config.entity ||
-      this.config.tap_action ||
-      this.config.hold_action ||
-      this.config.double_tap_action
+      (this.config.entity && String(this.config.tap_action?.action).toLowerCase() != "none") ||
+      (this.config.tap_action && String(this.config.tap_action?.action).toLowerCase() != "none") ||
+      (this.config.hold_action && String(this.config.hold_action?.action).toLowerCase() != "none") ||
+      (this.config.double_tap_action && String(this.config.double_tap_action?.action).toLowerCase() != "none")
     ) {
       bindActionHandler(this.shadowRoot.querySelector("state-badge"), options);
       bindActionHandler(this.shadowRoot.querySelector(".info"), options);
     }
+    const condition = this.config.condition === undefined ? true
+      : String(this.config.condition).toLowerCase() === "true";
+    this.dispatchEvent(
+      new CustomEvent("row-visibility-changed", 
+        { detail: { row: this, value: condition }, bubbles: true, composed: true }) 
+    );
   }
 
   _actionHandler(ev) {
     return this._action?.(ev);
   }
 
+  protected async updated(changedProperties: PropertyValues) {
+    if (changedProperties.has("config")) {
+      const oldCondition = changedProperties.get("config")?.condition === undefined ? true
+        : String(changedProperties.get("config")?.condition).toLowerCase() === "true";
+      const newCondition = this.config.condition === undefined ? true
+        : String(this.config.condition).toLowerCase() === "true";
+      if (oldCondition !== newCondition) {
+        this.dispatchEvent(
+          new CustomEvent("row-visibility-changed", 
+            { detail: { row: this, value: newCondition }, bubbles: true, composed: true }) 
+        );
+      }
+    }
+  }
+
   render() {
-    const base = this.hass.states[this.config.entity];
+    const base = this.hass.states[this.config.entity?.trim()];
     const entity = (base && JSON.parse(JSON.stringify(base))) || {
       entity_id: "binary_sensor.",
       attributes: { icon: "no:icon", friendly_name: "" },
@@ -113,24 +134,23 @@ class TemplateEntityRow extends LitElement {
         ? this.config.icon || "no:icon"
         : undefined;
     const image = this.config.image;
-    let color = this.config.color;
+    const color = this.config.color;
 
     const name =
       this.config.name ??
       entity?.attributes?.friendly_name ??
       entity?.entity_id;
     const secondary = this.config.secondary;
-    const state = this.config.state ?? base?.state;
-    let stateColor = true;
+    entity.state = this.config.state ?? base?.state;
+    const state = entity.state;
+    const stateColor = entity.state ? this.config.state_color ?? color === undefined : false;
 
-    const active = this.config.active ?? false;
+    const active = this.config.active !== undefined ? this.config.active : undefined;
     if (active) {
       entity.attributes.brightness = 255;
       entity.state = "on";
-    }
-    if (this.config.active === false) {
+    } else if (active === false) {
       entity.state = "off";
-      stateColor = false;
     }
 
     const hidden =
@@ -138,10 +158,10 @@ class TemplateEntityRow extends LitElement {
       String(this.config.condition).toLowerCase() !== "true";
     const show_toggle = this.config.toggle && this.config.entity;
     const has_action =
-      this.config.entity ||
-      this.config.tap_action ||
-      this.config.hold_action ||
-      this.config.double_tap_action;
+      (this.config.entity && String(this.config.tap_action?.action).toLowerCase() != "none") ||
+      (this.config.tap_action && String(this.config.tap_action?.action).toLowerCase() != "none") ||
+      (this.config.hold_action && String(this.config.hold_action?.action).toLowerCase() != "none") ||
+      (this.config.double_tap_action && String(this.config.double_tap_action?.action).toLowerCase() != "none")
 
     return html`
       <div id="wrapper" class="${hidden ? "hidden" : ""}">
@@ -153,7 +173,7 @@ class TemplateEntityRow extends LitElement {
           .overrideImage=${image}
           .color=${color}
           class=${classMap({ pointer: has_action })}
-          ?stateColor=${stateColor}
+          .stateColor=${stateColor}
         ></state-badge>
         <div
           class=${classMap({ info: true, pointer: has_action })}
