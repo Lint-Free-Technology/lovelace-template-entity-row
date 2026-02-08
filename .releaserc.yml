@@ -50,6 +50,9 @@ presetConfig:
 
 releaseRules:
   - type: feat
+    scope: "major"
+    release: major
+  - type: feat
     release: minor
   - type: fix
     release: patch
