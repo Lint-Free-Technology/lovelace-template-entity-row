@@ -1,3 +1,9 @@
+## [2.0.0-beta.8](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2026-02-09)
+
+### 📔 Documentation
+
+* Update localization key example in README ([b79ed3b](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/b79ed3bbcba041ab21a2cc79e07aef95c19b6ec0))
+
 ## [2.0.0-beta.7](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2026-02-08)
 
 ### 🐞 Bug Fixes
