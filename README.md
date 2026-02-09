@@ -61,15 +61,13 @@ Jinja templates have access to a few special variables. Those are:
 - `hash` - the hash part of the current URL.
 
 In evaluated templates the function `_(<key>)` (underscore) will localize the `<key>` to the current language.
-E.g. `_(state.binary_sensor.motion.off)` will be replaced with `Clear` if your language is set to English.
+E.g. `_(component.binary_sensor.entity_component.motion.state.off)` will be replaced with `Clear` if your language is set to English.
 
 To find the available keys, open your browsers console, type in the following and press Enter:
 
 ```javascript
 document.querySelector("home-assistant").hass.resources;
 ```
-
-Context variables are supported as well, for instance: `_(ui.duration.second, count, 30)` (note there are no quotes around `count`).
 
 ### Actions
 
