@@ -1,7 +1,7 @@
 {
   "name": "template-entity-row",
   "private": true,
-  "version": "2.0.0-beta.8",
+  "version": "2.0.0",
   "type": "module",
   "description": "",
   "scripts": {
@@ -15,6 +15,9 @@
   },
   "keywords": [],
   "author": "Thomas Lovén",
+  "contributors": [
+    "Darryn Capes-Davis"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.23.6",
