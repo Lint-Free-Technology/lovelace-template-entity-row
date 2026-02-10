@@ -37,7 +37,8 @@ presetConfig:
     - type: deps
       section: 📦 Dependency Upgrades
     - type: chore
-      section: ⚙️ Miscellaneous
+      section: Chores
+      hidden: true
     - type: refactor
       section: ⚙️ Miscellaneous
     - type: test
