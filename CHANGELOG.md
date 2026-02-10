@@ -1,3 +1,9 @@
+## [2.1.0-beta.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.1-beta.1...v2.1.0-beta.1) (2026-02-10)
+
+### ⭐ New Features
+
+* Add button option for state display. ([e02ed75](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/e02ed759466c1af0570eea97506a9dbce6ef7915))
+
 ## [2.0.1-beta.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0...v2.0.1-beta.1) (2026-02-10)
 
 ### 🐞 Bug Fixes
