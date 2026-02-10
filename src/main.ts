@@ -1,7 +1,7 @@
 import { LitElement, html, css, PropertyValues } from "lit";
 import { property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { bindActionHandler, hassAction } from "./helpers/action";
+import { bindActionHandler, buttonAction } from "./helpers/action";
 import pjson from "../package.json";
 import { bind_template, hasTemplate } from "./helpers/templates";
 import { hass } from "./helpers/hass";
@@ -161,7 +161,7 @@ class TemplateEntityRow extends LitElement {
       this.config.condition !== undefined &&
       String(this.config.condition).toLowerCase() !== "true";
     const show_toggle = this.config.toggle && this.config.entity;
-    const show_button = this.config.button && this.config.button_action && String(this.config.button_action?.action).toLowerCase() != "none";
+    const show_button = this.config.button;
     const has_action =
       (this.config.entity && String(this.config.tap_action?.action).toLowerCase() != "none") ||
       (this.config.tap_action && String(this.config.tap_action?.action).toLowerCase() != "none") ||
@@ -194,12 +194,12 @@ class TemplateEntityRow extends LitElement {
             : show_button
             ? html`<ha-button 
                 .hass=${this.hass} 
-                @click=${() => hassAction(this.config.button_action, this.config.entity?.trim())}
+                @click=${() => buttonAction(this.config.button_action, this.config.entity?.trim())}
                 appearance="plain"
                 size="small"
                 .disabled=${entity.state === "unavailable"}
               >
-                ${translate(this.hass, this.config.button)}
+                ${this.config.button === true ? this.hass.localize?.("ui.card.button.press") : translate(this.hass, this.config.button)}
               </ha-button>`
             : state
           }

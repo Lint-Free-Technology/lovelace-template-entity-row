@@ -1,4 +1,4 @@
-import { hass, hass_base_el } from "./hass";
+import { hass_base_el } from "./hass";
 
 export function bindActionHandler(element, options = {}) {
   customElements.whenDefined("long-press").then(() => {
@@ -12,7 +12,16 @@ export function bindActionHandler(element, options = {}) {
   return element;
 }
 
-export async function hassAction(actionConfig, entityId = "") {
+export async function buttonAction(actionConfig, entityId = "") {
+  if (!actionConfig) {
+    actionConfig = {      
+      action: "perform-action",
+      perform_action: "input_button.press",
+      target: {
+        entity_id: entityId
+      }
+    };
+  }
   const hsEl = await hass_base_el();
   let actionJSON = JSON.stringify(actionConfig);
   actionJSON = actionJSON.replace("config.entity", entityId);
