@@ -1,3 +1,9 @@
+## [2.1.0-beta.2](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.1.0-beta.1...v2.1.0-beta.2) (2026-02-10)
+
+### ⭐ New Features
+
+* Allow default button config with `button: true`. ([337963c](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/337963cf4c2b926d1cb74fd6722db42c97b51165))
+
 ## [2.1.0-beta.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.1-beta.1...v2.1.0-beta.1) (2026-02-10)
 
 ### ⭐ New Features
