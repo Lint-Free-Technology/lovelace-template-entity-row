@@ -142,7 +142,7 @@ class TemplateEntityRow extends LitElement {
       entity?.entity_id;
     const secondary = this.config.secondary;
     entity.state = this.config.state ?? base?.state;
-    const state = entity.state;
+    const state = this.config.state ? entity.state : this.hass.formatEntityState(entity);
     const stateColor = entity.state ? this.config.state_color ?? color === undefined : false;
 
     const active = this.config.active !== undefined ? this.config.active : undefined;

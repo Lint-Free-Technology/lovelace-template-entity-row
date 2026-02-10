@@ -44,7 +44,7 @@ entities:
 
 - `icon`, `name`, `state`, `secondary`, `image` selects what icon, name, state, secondary_info text and entity_picture to display respectively.
 - `active` if this evaluates to "true" or "false", the icon gets will always look active or inactive respectively.
-- `entity` if this evaluates to an entity id, `icon`, `name`, `state` and `image` will be taken from that entity unless manually overridden. Specifying an `entity` will also let you use [`action`](https://www.home-assistant.io/lovelace/entities/#options-for-entities).
+- `entity` if this evaluates to an entity id, `icon`, `name`, `state` and `image` will be taken from that entity unless manually overridden. Specifying an `entity` will also let you use [`action`](https://www.home-assistant.io/lovelace/entities/#options-for-entities). If you don't override `state` then state display will be localized.
 - `condition` if this is set but does not evaluate to "true", the row is not displayed.
 - `toggle` if this evaluates to "true" a toggle is shown instead of the state. The toggle is connected to the `entity`. This will only show a toggle, nothing else. No sliders, no dropdowns, no media controls. `toggle` means Toggle.
 - `tap_action`, `hold_action`, `double_tap_action`: see below.
