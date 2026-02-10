@@ -46,8 +46,9 @@ entities:
 - `active` if this evaluates to "true" or "false", the icon gets will always look active or inactive respectively.
 - `entity` if this evaluates to an entity id, `icon`, `name`, `state` and `image` will be taken from that entity unless manually overridden. Specifying an `entity` will also let you use [`action`](https://www.home-assistant.io/lovelace/entities/#options-for-entities). If you don't override `state` then state display will be localized.
 - `condition` if this is set but does not evaluate to "true", the row is not displayed.
-- `toggle` if this evaluates to "true" a toggle is shown instead of the state. The toggle is connected to the `entity`. This will only show a toggle, nothing else. No sliders, no dropdowns, no media controls. `toggle` means Toggle.
-- `tap_action`, `hold_action`, `double_tap_action`: see below.
+- `toggle` if this evaluates to "true" a toggle is shown instead of the state. The toggle is connected to the `entity`. This will only show a toggle, nothing else. No sliders, no dropdowns, no media controls. `toggle` means Toggle. NOTE: Both `toggle` and `button` cannot be set together.
+- `button` if this is set then then the state will be replaced with a button with text set to this config. `button_action` must also be set. NOTE: Both `toggle` and `button` cannot be set together.
+- `tap_action`, `hold_action`, `double_tap_action`, `button_action`: see below.
 - `color` the CSS color of the icon.
 - `state_color` whether the icon color will respond to state changes. Use if you are setting `state` but don't wish for the icon to change color based on state. e.g. If your entity had device class battery and you wish for icons to change, but not color. If `state_color` is not set, but `color` is set, `state_color` will be set to false. In this case use `color` template if you wish for the icon to show different colors.
 
@@ -71,7 +72,7 @@ document.querySelector("home-assistant").hass.resources;
 
 ### Actions
 
-`tap_action`, `hold_action` and `double_tap_action` can be templated if the template evaluates to a valid [action configuration](https://www.home-assistant.io/lovelace/actions/) in python format. Standard YAML without templates works too.
+`tap_action`, `hold_action`, `double_tap_action` and `button_action` can be templated if the template evaluates to a valid [action configuration](https://www.home-assistant.io/lovelace/actions/) in python format. Standard YAML without templates works too.
 
 Eg:
 
