@@ -1,3 +1,19 @@
+## [2.0.1-beta.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0...v2.0.1-beta.1) (2026-02-10)
+
+### 🐞 Bug Fixes
+
+* Localize state display when not overridden in config ([db87ea2](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/db87ea2ff4b63e0b23b1b75d1ec9e266ca58c010))
+
+### 📔 Documentation
+
+* Update localization key example in README ([b79ed3b](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/b79ed3bbcba041ab21a2cc79e07aef95c19b6ec0))
+
+### ⚙️ Miscellaneous
+
+* **ci:** Update release to manual only ([ddf40c9](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/ddf40c9447bab9d8a77fd66c754b3b6227a7baa9))
+* **docs:** Update CHANGELOG with recent fixes and updates ([0c4f12b](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/0c4f12bc2c51dffec81855f21d4fabaa1749e22e))
+* **release:** 2.0.0-beta.8 [skip ci] ([1439759](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/1439759863ea9dfd61a6269d64dfc471a100bd56))
+
 ## [2.0.0](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v1.4.1...v2.0.0) (2026-02-08)
 
 ### 🐞 Bug Fixes
