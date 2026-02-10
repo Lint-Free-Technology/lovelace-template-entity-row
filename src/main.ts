@@ -1,7 +1,7 @@
 import { LitElement, html, css, PropertyValues } from "lit";
 import { property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { bindActionHandler } from "./helpers/action";
+import { bindActionHandler, buttonAction } from "./helpers/action";
 import pjson from "../package.json";
 import { bind_template, hasTemplate } from "./helpers/templates";
 import { hass } from "./helpers/hass";
@@ -24,6 +24,7 @@ const OPTIONS = [
   "tap_action",
   "hold_action",
   "double_tap_action",
+  "button_action",
 ];
 
 const LOCALIZE_PATTERN = /_\([^)]*\)/g;
@@ -36,7 +37,7 @@ const translate = (hass, text: String) => {
     return hass.localize.apply(null, params) || key;
   });
 };
-
+  
 class TemplateEntityRow extends LitElement {
   @property() _config;
   @property() hass;
@@ -44,6 +45,9 @@ class TemplateEntityRow extends LitElement {
   @property() _action;
 
   setConfig(config) {
+    if (config.toggle !== undefined && config.button !== undefined) {
+      throw new Error("toggle and button options cannot be used together.");
+    }
     this._config = { ...config };
     this.config = { ...this._config };
 
@@ -142,7 +146,7 @@ class TemplateEntityRow extends LitElement {
       entity?.entity_id;
     const secondary = this.config.secondary;
     entity.state = this.config.state ?? base?.state;
-    const state = entity.state;
+    const state = this.config.state ? entity.state : this.hass.formatEntityState(entity);
     const stateColor = entity.state ? this.config.state_color ?? color === undefined : false;
 
     const active = this.config.active !== undefined ? this.config.active : undefined;
@@ -157,6 +161,7 @@ class TemplateEntityRow extends LitElement {
       this.config.condition !== undefined &&
       String(this.config.condition).toLowerCase() !== "true";
     const show_toggle = this.config.toggle && this.config.entity;
+    const show_button = this.config.button;
     const has_action =
       (this.config.entity && String(this.config.tap_action?.action).toLowerCase() != "none") ||
       (this.config.tap_action && String(this.config.tap_action?.action).toLowerCase() != "none") ||
@@ -186,7 +191,18 @@ class TemplateEntityRow extends LitElement {
           ${show_toggle
             ? html`<ha-entity-toggle .hass=${this.hass} .stateObj=${entity}>
               </ha-entity-toggle>`
-            : state}
+            : show_button
+            ? html`<ha-button 
+                .hass=${this.hass} 
+                @click=${() => buttonAction(this.config.button_action, this.config.entity?.trim())}
+                appearance="plain"
+                size="small"
+                .disabled=${entity.state === "unavailable"}
+              >
+                ${this.config.button === true ? this.hass.localize?.("ui.card.button.press") : translate(this.hass, this.config.button)}
+              </ha-button>`
+            : state
+          }
         </div>
       </div>
       <div id="staging">
@@ -210,6 +226,11 @@ class TemplateEntityRow extends LitElement {
         }
         .state {
           text-align: right;
+        }
+        .state > ha-button {
+          margin-right: -0.57em;
+          margin-inline-end: -0.57em;
+          margin-inline-start: initial;
         }
         #wrapper {
           min-height: 40px;

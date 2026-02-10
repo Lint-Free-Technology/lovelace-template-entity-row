@@ -44,10 +44,11 @@ entities:
 
 - `icon`, `name`, `state`, `secondary`, `image` selects what icon, name, state, secondary_info text and entity_picture to display respectively.
 - `active` if this evaluates to "true" or "false", the icon gets will always look active or inactive respectively.
-- `entity` if this evaluates to an entity id, `icon`, `name`, `state` and `image` will be taken from that entity unless manually overridden. Specifying an `entity` will also let you use [`action`](https://www.home-assistant.io/lovelace/entities/#options-for-entities).
+- `entity` if this evaluates to an entity id, `icon`, `name`, `state` and `image` will be taken from that entity unless manually overridden. Specifying an `entity` will also let you use [`action`](https://www.home-assistant.io/lovelace/entities/#options-for-entities). If you don't override `state` then state display will be localized.
 - `condition` if this is set but does not evaluate to "true", the row is not displayed.
-- `toggle` if this evaluates to "true" a toggle is shown instead of the state. The toggle is connected to the `entity`. This will only show a toggle, nothing else. No sliders, no dropdowns, no media controls. `toggle` means Toggle.
-- `tap_action`, `hold_action`, `double_tap_action`: see below.
+- `toggle` if this evaluates to "true" a toggle is shown instead of the state. The toggle is connected to the `entity`. This will only show a toggle, nothing else. No sliders, no dropdowns, no media controls. `toggle` means Toggle. NOTE: Both `toggle` and `button` cannot be set together.
+- `button` if this is set then then the state will be replaced with a button. If the value for `button` is `true` then the translated string `Press` will be used for the button. Otherwise a string is expected and will be used. If `button_action` is not set then the default action will be `input_button.press` for the config entity. NOTE: Both `toggle` and `button` cannot be set together.
+- `tap_action`, `hold_action`, `double_tap_action`, `button_action`: see below.
 - `color` the CSS color of the icon.
 - `state_color` whether the icon color will respond to state changes. Use if you are setting `state` but don't wish for the icon to change color based on state. e.g. If your entity had device class battery and you wish for icons to change, but not color. If `state_color` is not set, but `color` is set, `state_color` will be set to false. In this case use `color` template if you wish for the icon to show different colors.
 
@@ -61,7 +62,7 @@ Jinja templates have access to a few special variables. Those are:
 - `hash` - the hash part of the current URL.
 
 In evaluated templates the function `_(<key>)` (underscore) will localize the `<key>` to the current language.
-E.g. `_(state.binary_sensor.motion.off)` will be replaced with `Clear` if your language is set to English.
+E.g. `_(component.binary_sensor.entity_component.motion.state.off)` will be replaced with `Clear` if your language is set to English.
 
 To find the available keys, open your browsers console, type in the following and press Enter:
 
@@ -69,11 +70,9 @@ To find the available keys, open your browsers console, type in the following an
 document.querySelector("home-assistant").hass.resources;
 ```
 
-Context variables are supported as well, for instance: `_(ui.duration.second, count, 30)` (note there are no quotes around `count`).
-
 ### Actions
 
-`tap_action`, `hold_action` and `double_tap_action` can be templated if the template evaluates to a valid [action configuration](https://www.home-assistant.io/lovelace/actions/) in python format. Standard YAML without templates works too.
+`tap_action`, `hold_action`, `double_tap_action` and `button_action` can be templated if the template evaluates to a valid [action configuration](https://www.home-assistant.io/lovelace/actions/) in python format. Standard YAML without templates works too.
 
 Eg:
 
