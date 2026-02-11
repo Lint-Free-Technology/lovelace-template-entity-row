@@ -1,7 +1,5 @@
 # template-entity-row
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/hacs/integration)
-
 Forked from [thomasloven/lovelace-template-entity-row](https://github.com/thomasloven/lovelace-template-entity-row) to continue development of the stalled project.
 
 Display whatever you want in an entities card row.
