@@ -6,7 +6,7 @@ Display whatever you want in an entities card row.
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Lint-Free-Technology&repository=lovelace-template-entity-row&category=plugin)
 
-To install via HACS, add this repo [https://github.com/Lint-Free-Technology/lovelace-template-entity-row](https://github.com/Lint-Free-Technology/lovelace-template-entity-row) as a [custom HACS repository](https://www.hacs.xyz/docs/faq/custom_repositories/). Use the button above to do this in one step. You are best to remove [thomasloven/lovelace-template-entity-row](https://github.com/thomasloven/lovelace-template-entity-row) in your HACS to avoid confusion as to what repo you are using.
+To install via HACS, add this repo [https://github.com/Lint-Free-Technology/lovelace-template-entity-row](https://github.com/Lint-Free-Technology/lovelace-template-entity-row) as a [custom HACS repository](https://www.hacs.xyz/docs/faq/custom_repositories/)  using type `Dashboard`. Use the button above to do this in one step. You are best to remove [thomasloven/lovelace-template-entity-row](https://github.com/thomasloven/lovelace-template-entity-row) in your HACS to avoid confusion as to what repo you are using.
 
 Install `template-entity-row.js` as a `module`.
 
