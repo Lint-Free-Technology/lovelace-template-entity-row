@@ -51,6 +51,7 @@ entities:
 - `tap_action`, `hold_action`, `double_tap_action`, `button_action`: see below.
 - `color` the CSS color of the icon.
 - `state_color` whether the icon color will respond to state changes. Use if you are setting `state` but don't wish for the icon to change color based on state. e.g. If your entity had device class battery and you wish for icons to change, but not color. If `state_color` is not set, but `color` is set, `state_color` will be set to false. In this case use `color` template if you wish for the icon to show different colors.
+- `delimiters` a two-element list `[open, close]` that replaces the default Jinja2 expression delimiters `{{` and `}}`. Useful when your YAML processor or another integration interprets `{{` and `}}` as special syntax. For example, set `delimiters: ["[[", "]]"]` and then write `[[states('sensor.temperature')]]` instead of `{{states('sensor.temperature')}}`. Note: Jinja2 block tags (`{% %}`) are not affected by this option and must always use the standard syntax. Choose delimiters that are unlikely to appear in normal Jinja2 template expressions (e.g. avoid `[` and `]` individually since they are used for list and dict access).
 
 All options accept [jinja2 templates](https://www.home-assistant.io/docs/configuration/templating/).
 

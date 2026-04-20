@@ -32,18 +32,29 @@ function template_updated(
   cache.callbacks.forEach((f) => f(result.result));
 }
 
-export function hasTemplate(str) {
+export function hasTemplate(str, delimiters: [string, string] = ["{{", "}}"]) {
   if (!str) return false;
-  return String(str).includes("{%") || String(str).includes("{{");
+  const s = String(str);
+  return s.includes("{%") || s.includes(delimiters[0]);
 }
 
 export async function bind_template(
   callback: (string) => void,
   template: string,
-  variables: object
+  variables: object,
+  delimiters: [string, string] = ["{{", "}}"]
 ): Promise<void> {
   const hs = await hass();
   const connection = hs.connection;
+
+  if (delimiters[0] !== "{{" || delimiters[1] !== "}}") {
+    const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const pattern = new RegExp(
+      `${escapeRegex(delimiters[0])}([\\s\\S]*?)${escapeRegex(delimiters[1])}`,
+      "g"
+    );
+    template = template.replace(pattern, "{{$1}}");
+  }
 
   const cacheKey = JSON.stringify([template, variables]);
   let cache = cachedTemplates[cacheKey];
