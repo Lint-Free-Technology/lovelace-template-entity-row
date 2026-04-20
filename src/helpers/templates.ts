@@ -32,28 +32,43 @@ function template_updated(
   cache.callbacks.forEach((f) => f(result.result));
 }
 
-export function hasTemplate(str, delimiters: [string, string] = ["{{", "}}"]) {
+function parseDelimiters(delimiters?: string): { open: string; close: string } | null {
+  if (!delimiters || typeof delimiters !== "string" || delimiters.length < 2) return null;
+  return { open: delimiters[0], close: delimiters[delimiters.length - 1] };
+}
+
+export function hasTemplate(str, delimiters?: string) {
   if (!str) return false;
   const s = String(str);
-  return s.includes("{%") || s.includes(delimiters[0]);
+  const d = parseDelimiters(delimiters);
+  if (d) {
+    return (
+      s.includes(d.open + d.open) ||
+      s.includes(d.open + "%") ||
+      s.includes(d.open + "#")
+    );
+  }
+  return s.includes("{{") || s.includes("{%");
 }
 
 export async function bind_template(
   callback: (string) => void,
   template: string,
   variables: object,
-  delimiters: [string, string] = ["{{", "}}"]
+  delimiters?: string
 ): Promise<void> {
   const hs = await hass();
   const connection = hs.connection;
 
-  if (delimiters[0] !== "{{" || delimiters[1] !== "}}") {
+  const d = parseDelimiters(delimiters);
+  if (d) {
     const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const pattern = new RegExp(
-      `${escapeRegex(delimiters[0])}([\\s\\S]*?)${escapeRegex(delimiters[1])}`,
-      "g"
-    );
-    template = template.replace(pattern, "{{$1}}");
+    const eo = escapeRegex(d.open);
+    const ec = escapeRegex(d.close);
+    template = template
+      .replace(new RegExp(`${eo}${eo}([\\s\\S]*?)${ec}${ec}`, "g"), "{{$1}}")
+      .replace(new RegExp(`${eo}%([\\s\\S]*?)%${ec}`, "g"), "{%$1%}")
+      .replace(new RegExp(`${eo}#([\\s\\S]*?)#${ec}`, "g"), "{#$1#}");
   }
 
   const cacheKey = JSON.stringify([template, variables]);
