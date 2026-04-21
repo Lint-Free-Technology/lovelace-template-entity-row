@@ -1,3 +1,11 @@
+## [2.1.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.1.0...v2.1.1) (2026-02-12)
+
+### ⚙️ Miscellaneous
+
+* Hide chores for release notes ([1b6c048](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/1b6c04859be946da21ad04cbc4fe0131c176b7f3))
+* Update console branding to distinguish fork. ([28d017e](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/28d017ec203027283aee20d5cc88ed63596d2b43))
+* Update LFT console branding color to LFT red ([a14cf56](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/a14cf56c03ebd187c07eb953ec8a11298d9c6972))
+
 ## [2.1.0](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.0.0...v2.1.0) (2026-02-10)
 
 ### ⭐ New Features
