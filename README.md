@@ -51,24 +51,22 @@ entities:
 - `tap_action`, `hold_action`, `double_tap_action`, `button_action`: see below.
 - `color` the CSS color of the icon.
 - `state_color` whether the icon color will respond to state changes. Use if you are setting `state` but don't wish for the icon to change color based on state. e.g. If your entity had device class battery and you wish for icons to change, but not color. If `state_color` is not set, but `color` is set, `state_color` will be set to false. In this case use `color` template if you wish for the icon to show different colors.
-- `delimiters` a string whose **first** and **last** characters define replacement bracket characters for all Jinja2 tag types. This is useful in UI block editors and other environments that intercept or reject the standard `{{`/`}}` syntax. Given a delimiter string the first character (`open`) and last character (`close`) replace the `{` and `}` in every tag type:
+- `nested_delimiters` if set to `true`, enables nested bracket syntax (`[[`/`]]`) as an alternative to the standard `{{`/`}}` Jinja2 delimiters. This is useful in UI block editors (e.g. Home Assistant's GUI card editor) that intercept or reject the standard syntax. All three Jinja2 tag types are supported:
   
-  | Standard Jinja2 | Custom (e.g. `"[[]]"`) |
+  | Standard Jinja2 | Nested (`nested_delimiters: true`) |
   | - | - |
   | `{{ expression }}` | `[[ expression ]]` |
   | `{% block tag %}` | `[% block tag %]` |
   | `{# comment #}` | `[# comment #]` |
 
-  Example — set `delimiters: "[[]]"` and write:
+  Example — set `nested_delimiters: true` and write:
 
   ```yaml
   type: custom:template-entity-row
-  delimiters: "[[]]"
+  nested_delimiters: true
   name: "The light is [[ states('light.bed_light') ]]"
   state: "[% if is_state('input_boolean.car_home', 'on') %] home [% else %] away [% endif %]"
   ```
-  
-  Choose a delimiter string whose first/last characters are unlikely to appear as literal text around your template tags. For example, `"[[]]"` is a good choice because `[` and `]` rarely appear as standalone surrounding characters in YAML values.
 
 All options accept [jinja2 templates](https://www.home-assistant.io/docs/configuration/templating/).
 

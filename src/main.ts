@@ -58,7 +58,7 @@ class TemplateEntityRow extends LitElement {
     const hs = await hass();
     for (const k of OPTIONS) {
       if (!this._config[k]) continue;
-      if (hasTemplate(this._config[k], this._config.delimiters)) {
+      if (hasTemplate(this._config[k], this._config.nested_delimiters)) {
         bind_template(
           (res) => {
             const state = { ...this.config };
@@ -68,7 +68,7 @@ class TemplateEntityRow extends LitElement {
           },
           this._config[k],
           { config: this._config },
-          this._config.delimiters
+          this._config.nested_delimiters
         );
       } else if (typeof this._config[k] === "string") {
         this.config[k] = translate(hs, this._config[k]);
