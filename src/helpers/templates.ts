@@ -32,10 +32,10 @@ function template_updated(
   cache.callbacks.forEach((f) => f(result.result));
 }
 
-export function hasTemplate(str, nested_delimiters?: boolean) {
+export function hasTemplate(str, nested_templates?: boolean) {
   if (!str) return false;
   const s = String(str);
-  if (nested_delimiters) {
+  if (nested_templates) {
     return s.includes("[[") || s.includes("[%") || s.includes("[#");
   }
   return s.includes("{{") || s.includes("{%");
@@ -45,12 +45,12 @@ export async function bind_template(
   callback: (string) => void,
   template: string,
   variables: object,
-  nested_delimiters?: boolean
+  nested_templates?: boolean
 ): Promise<void> {
   const hs = await hass();
   const connection = hs.connection;
 
-  if (nested_delimiters) {
+  if (nested_templates) {
     template = template
       .replace(/\[\[([\s\S]*?)\]\]/g, "{{$1}}")
       .replace(/\[%([\s\S]*?)%\]/g, "{%$1%}")
