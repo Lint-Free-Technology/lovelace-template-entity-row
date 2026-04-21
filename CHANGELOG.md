@@ -1,3 +1,9 @@
+## [2.2.0-beta.2](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.2.0-beta.1...v2.2.0-beta.2) (2026-04-21)
+
+### 🐞 Bug Fixes
+
+* Use`state_display` when needing to display template which may not be a valid raw `state`. ([d2a59d6](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/d2a59d62945eac2fa27058663b6df1c307fad51b)), closes [#34](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/34)
+
 ## [2.2.0-beta.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.1.1...v2.2.0-beta.1) (2026-04-21)
 
 ### ⭐ New Features
