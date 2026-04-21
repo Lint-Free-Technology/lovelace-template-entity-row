@@ -51,7 +51,7 @@ entities:
 - `tap_action`, `hold_action`, `double_tap_action`, `button_action`: see below.
 - `color` the CSS color of the icon.
 - `state_color` whether the icon color will respond to state changes. Use if you are setting `state` but don't wish for the icon to change color based on state. e.g. If your entity had device class battery and you wish for icons to change, but not color. If `state_color` is not set, but `color` is set, `state_color` will be set to false. In this case use `color` template if you wish for the icon to show different colors.
-- `nested_templates` if set to `true`, enables nested bracket syntax (`[[`/`]]`) as an alternative to the standard `{{`/`}}` Jinja2 delimiters. This is useful in UI block editors (e.g. Home Assistant's GUI card editor) that intercept or reject the standard syntax. All three Jinja2 tag types are supported:
+- `nested_templates` if set to `true`, enables nested bracket syntax (`[[`/`]]`) as an alternative to the standard `{{`/`}}` Jinja2 delimiters. This is useful in if using template entity in a card that uses Jinja templates itself.
   
   | Standard Jinja2 | Nested (`nested_templates: true`) |
   | - | - |
