@@ -32,18 +32,30 @@ function template_updated(
   cache.callbacks.forEach((f) => f(result.result));
 }
 
-export function hasTemplate(str) {
+export function hasTemplate(str, nested_templates?: boolean) {
   if (!str) return false;
-  return String(str).includes("{%") || String(str).includes("{{");
+  const s = String(str);
+  if (nested_templates) {
+    return s.includes("[[") || s.includes("[%") || s.includes("[#");
+  }
+  return s.includes("{{") || s.includes("{%");
 }
 
 export async function bind_template(
   callback: (string) => void,
   template: string,
-  variables: object
+  variables: object,
+  nested_templates?: boolean
 ): Promise<void> {
   const hs = await hass();
   const connection = hs.connection;
+
+  if (nested_templates) {
+    template = template
+      .replace(/\[\[([\s\S]*?)\]\]/g, "{{$1}}")
+      .replace(/\[%([\s\S]*?)%\]/g, "{%$1%}")
+      .replace(/\[#([\s\S]*?)#\]/g, "{#$1#}");
+  }
 
   const cacheKey = JSON.stringify([template, variables]);
   let cache = cachedTemplates[cacheKey];

@@ -1,3 +1,15 @@
+## [2.2.0-beta.2](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.2.0-beta.1...v2.2.0-beta.2) (2026-04-21)
+
+### 🐞 Bug Fixes
+
+* Use`state_display` when needing to display template which may not be a valid raw `state`. ([d2a59d6](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/d2a59d62945eac2fa27058663b6df1c307fad51b)), closes [#34](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/34)
+
+## [2.2.0-beta.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.1.1...v2.2.0-beta.1) (2026-04-21)
+
+### ⭐ New Features
+
+* boolean nested_templates option for nested Jinja2 bracket syntax ([#32](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/32)) ([63eac5b](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/63eac5b74ed2d487a9d7340fc72f6550a741b6e1))
+
 ## [2.1.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.1.0...v2.1.1) (2026-02-12)
 
 ### ⚙️ Miscellaneous
