@@ -12,6 +12,7 @@ const OPTIONS = [
   "name",
   "secondary",
   "state",
+  "state_display",
   "condition",
   "image",
   "entity",
@@ -147,7 +148,7 @@ class TemplateEntityRow extends LitElement {
       entity?.entity_id;
     const secondary = this.config.secondary;
     entity.state = this.config.state ?? base?.state;
-    const state = this.config.state ? entity.state : this.hass.formatEntityState(entity);
+    const stateDisplay = this.config.state_display ?? (this.config.state ? entity.state : this.hass.formatEntityState(entity));
     const stateColor = entity.state ? this.config.state_color ?? color === undefined : false;
 
     const active = this.config.active !== undefined ? this.config.active : undefined;
@@ -202,7 +203,7 @@ class TemplateEntityRow extends LitElement {
               >
                 ${this.config.button === true ? this.hass.localize?.("ui.card.button.press") : translate(this.hass, this.config.button)}
               </ha-button>`
-            : state
+            : stateDisplay
           }
         </div>
       </div>
