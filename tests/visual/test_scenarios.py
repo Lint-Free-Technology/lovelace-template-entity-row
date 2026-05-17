@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import pytest
+from ha_testcontainer import HATestContainer
 from playwright.sync_api import Page
 
 from ha_testcontainer.visual.scenario_runner import (
@@ -22,7 +23,7 @@ _SCENARIO_MAP = {s["id"]: s for s in _ALL_SCENARIOS}
 @pytest.mark.parametrize("scenario_id", _SCENARIO_IDS)
 def test_scenario(
     scenario_id: str,
-    ha,
+    ha: HATestContainer,
     ha_page: Page,
     ha_url: str,
     ha_lovelace_url_path: str,
