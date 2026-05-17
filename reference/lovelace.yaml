@@ -2,7 +2,7 @@ title: Template-entity-row
 views:
   - title: Main
     cards:
-      - type: entities
+      - type: entities # Test 1
         title: Static
         entities:
           - light.bed_light
@@ -32,7 +32,7 @@ views:
           - type: custom:template-entity-row
             image: https://placekitten.com/50/50
 
-      - type: entities
+      - type: entities # Test 2
         title: Entity based
         entities:
           - type: custom:template-entity-row
@@ -107,7 +107,7 @@ views:
             entity: light.bed_light
             toggle: "{{is_state(config.entity, 'on')}}"
 
-      - type: entities
+      - type: entities # Test 3
         title: Templates
         entities:
           - entity: input_boolean.test
@@ -152,7 +152,7 @@ views:
             condition: "{{is_state('input_boolean.test', 'on')}}"
 
           - type: section
-            label: color (undocumented)
+            label: color
           - type: custom:template-entity-row
             icon: mdi:cog
             color: "rgb{{state_attr('light.bed_light', 'rgb_color')}}"
@@ -166,14 +166,14 @@ views:
             name: Changing
             color: "{{'purple' if is_state('input_boolean.test', 'on') else '' }}"
 
-      - type: entities
+      - type: entities # Test 4
         title: Localize
         entities:
           - type: custom:template-entity-row
             name: "State is: _(ui.card.update.installing)"
             state: '{{ "_(ui.card.update.installing)" }}'
 
-      - type: entities
+      - type: entities # Test 5
         title: Demo
         entities:
           - entity: input_boolean.test
@@ -188,7 +188,7 @@ views:
             name: Hi there
             condition: "{{is_state('input_boolean.car_home', 'on')}}"
 
-      - type: entities
+      - type: entities # Test 6
         title: Tap action
         entities:
           - entity: input_boolean.test
@@ -222,63 +222,3 @@ views:
             # action: url
             # url_path: https://www.google.com
 
-      - type: entities
-        entities:
-          - entity: light.bed_light
-            type: custom:template-entity-row
-          - entity: light.ceiling_lights
-            type: custom:template-entity-row
-          - entity: light.kitchen_lights
-            type: custom:template-entity-row
-          - type: custom:template-entity-row
-            name: '{{ "_(ui.card.climate.current_temperature, name, hello)" }}'
-  - title: Load test
-    cards:
-      - type: entities
-        entities:
-          - entity: input_boolean.test
-      - <<: &card
-          type: entities
-          entities:
-            - <<: &row
-                type: custom:template-entity-row
-                icon: mdi:cog
-                active: "{{is_state('input_boolean.test','on')}}"
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-            - *row
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
-      - *card
