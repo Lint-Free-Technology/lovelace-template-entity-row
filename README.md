@@ -16,6 +16,8 @@ resources:
     type: module
 ```
 
+Legacy test harness reference configuration is available at `reference/lovelace.yaml`.
+
 ## Usage example
 
 **Note:** This is _not_ a card. It's a row for an [entities](https://www.home-assistant.io/lovelace/entities/).
