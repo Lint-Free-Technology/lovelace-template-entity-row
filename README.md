@@ -84,7 +84,7 @@ E.g. `_(component.binary_sensor.entity_component.motion.state.off)` will be repl
 To find the available keys, open your browsers console, type in the following and press Enter:
 
 ```javascript
-document.querySelector("home-assistant").hass.resources;
+document.querySelector("home-assistant").hass.translationMetadata.translations;
 ```
 
 ### Actions
