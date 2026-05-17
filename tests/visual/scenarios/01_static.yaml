@@ -1,0 +1,34 @@
+id: static
+description: Static row options from reference/lovelace.yaml Test 1
+view_path: static
+
+card:
+  type: entities
+  title: Static
+  entities:
+    - light.bed_light
+    - type: section
+      label: icon
+    - type: custom:template-entity-row
+      icon: mdi:cog
+    - type: section
+      label: name
+    - type: custom:template-entity-row
+      name: Name
+    - type: section
+      label: state
+    - type: custom:template-entity-row
+      state: state
+    - type: section
+      label: secondary
+    - type: custom:template-entity-row
+      secondary: secondary
+    - type: section
+      label: image
+    - type: custom:template-entity-row
+      image: https://placekitten.com/50/50
+
+assertions:
+  - type: snapshot
+    name: 01_static
+    threshold: 0.02

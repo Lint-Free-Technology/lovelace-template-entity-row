@@ -2,3 +2,9 @@ node_modules/
 .vscode/settings.json
 dist/
 template-entity-row.js
+.venv/
+.pytest_cache/
+.ha_env
+**/__pycache__/
+*.egg-info/
+tests/visual/snapshots/*.actual.png

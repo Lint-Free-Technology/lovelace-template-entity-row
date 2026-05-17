@@ -1,0 +1,78 @@
+id: entity_based
+description: Entity based options from reference/lovelace.yaml Test 2
+view_path: entity-based
+
+card:
+  type: entities
+  title: Entity based
+  entities:
+    - type: custom:template-entity-row
+      entity: light.bed_light
+    - type: section
+      label: icon
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      icon: mdi:cog
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      icon:
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      active: true
+      name: Active
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      active: false
+      name: Inactive
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      name: Color
+      color: magenta
+    - type: section
+      label: name
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      name: name
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      name:
+    - type: section
+      label: state
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      state: state
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      state:
+    - type: section
+      label: secondary
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      secondary: secondary
+    - type: section
+      label: image
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      image: https://placekitten.com/50/50
+    - type: section
+      label: condition
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      condition: "{{is_state('input_boolean.test', 'on')}}"
+    - type: section
+      label: toggle
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      toggle: true
+    - type: custom:template-entity-row
+      name: No Entity
+      toggle: true
+    - type: custom:template-entity-row
+      name: Conditional
+      entity: light.bed_light
+      toggle: "{{is_state(config.entity, 'on')}}"
+
+assertions:
+  - type: snapshot
+    name: 02_entity_based
+    threshold: 0.02

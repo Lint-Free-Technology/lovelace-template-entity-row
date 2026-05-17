@@ -18,6 +18,17 @@ resources:
 
 Legacy test harness reference configuration is available at `reference/lovelace.yaml`.
 
+## Visual test scaffold (ha-testcontainer)
+
+A `ha-testcontainer` visual test scaffold is included with scenario snapshots and doc-image scaffolding.
+
+- Scenario tests: `tests/visual/scenarios/*.yaml` + `tests/visual/test_scenarios.py`
+- Snapshot baselines directory: `tests/visual/snapshots/`
+- Doc image scenarios: `docs/scenarios/*.yaml` + `tests/visual/test_doc_images.py`
+- VS Code tasks: `.vscode/tasks.json`
+
+See `tests/README.md` for setup and execution details.
+
 ## Usage example
 
 **Note:** This is _not_ a card. It's a row for an [entities](https://www.home-assistant.io/lovelace/entities/).

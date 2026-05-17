@@ -1,0 +1,6 @@
+template_entity_row_dark:
+  modes:
+    dark:
+      primary-color: "#CE3226"
+      accent-color: "#E6584D"
+      card-background-color: "#1f1f1f"

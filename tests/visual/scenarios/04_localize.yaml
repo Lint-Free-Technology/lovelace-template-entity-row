@@ -1,0 +1,16 @@
+id: localize
+description: Localization template from reference/lovelace.yaml Test 4
+view_path: localize
+
+card:
+  type: entities
+  title: Localize
+  entities:
+    - type: custom:template-entity-row
+      name: "State is: _(ui.card.update.installing)"
+      state: '{{ "_(ui.card.update.installing)" }}'
+
+assertions:
+  - type: snapshot
+    name: 04_localize
+    threshold: 0.02
