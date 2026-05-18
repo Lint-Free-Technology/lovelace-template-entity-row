@@ -1,0 +1,42 @@
+id: static_entities_off
+description: Static row options with entities off
+view_path: static-entities-off
+
+setup:
+  - type: ha_service
+    domain: light
+    service: turn_off
+    data:
+      entity_id: light.bed_light
+    settle_ms: 50
+
+card:
+  type: entities
+  title: Static Entities Off
+  entities:
+    - light.bed_light
+    - type: section
+      label: icon
+    - type: custom:template-entity-row
+      icon: mdi:cog
+    - type: section
+      label: name
+    - type: custom:template-entity-row
+      name: Name
+    - type: section
+      label: state
+    - type: custom:template-entity-row
+      state: state
+    - type: section
+      label: secondary
+    - type: custom:template-entity-row
+      secondary: secondary
+    - type: section
+      label: image
+    - type: custom:template-entity-row
+      image: https://picsum.photos/id/433/50
+
+assertions:
+  - type: snapshot
+    name: 01_static_entities_off
+    threshold: 0.02
