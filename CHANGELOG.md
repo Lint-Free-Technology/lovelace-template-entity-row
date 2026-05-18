@@ -1,3 +1,9 @@
+## [2.2.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.2.0...v2.2.1) (2026-05-18)
+
+### ⚙️ Miscellaneous
+
+* Update tests and doc images/animations to use ha-testcontainer visual test harness. ([#38](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/38)) ([6c22868](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/6c2286831028b16231356241637bb53633856abe))
+
 ## [2.2.0](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.1.1...v2.2.0) (2026-04-21)
 
 ### ⭐ New Features
