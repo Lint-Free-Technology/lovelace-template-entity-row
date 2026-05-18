@@ -1,0 +1,25 @@
+homeassistant:
+  country: US
+  unit_system: metric
+  time_zone: UTC
+  
+default_config:
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+demo:
+
+lovelace:
+  mode: storage
+  resource_mode: yaml
+  resources: !include lovelace_resources.yaml
+
+input_boolean:
+  test_boolean:
+    name: Test Boolean
+    initial: off
+
+person:
+  - name: James Bond 007
+    id: james_bond007

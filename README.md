@@ -16,6 +16,19 @@ resources:
     type: module
 ```
 
+Legacy test harness reference configuration is available at `reference/lovelace.yaml`.
+
+## Visual test scaffold (ha-testcontainer)
+
+A `ha-testcontainer` visual test scaffold is included with scenario snapshots and doc-image scaffolding.
+
+- Scenario tests: `tests/visual/scenarios/*.yaml` + `tests/visual/test_scenarios.py`
+- Snapshot baselines directory: `tests/visual/snapshots/`
+- Doc image scenarios: `docs/scenarios/*.yaml` + `tests/visual/test_doc_images.py`
+- VS Code tasks: `.vscode/tasks.json`
+
+See `tests/README.md` for setup and execution details.
+
 ## Usage example
 
 **Note:** This is _not_ a card. It's a row for an [entities](https://www.home-assistant.io/lovelace/entities/).
@@ -24,20 +37,23 @@ resources:
 
 ```yaml
 type: entities
-title: Default
+title: Quick Start
 entities:
   - light.bed_light
-  - entity: input_boolean.car_home
   - type: custom:template-entity-row
     icon: mdi:lamp
     name: "The light is {{states('light.bed_light')}} but nobody's"
-    state: "{% if is_state('input_boolean.car_home', 'on')%} home {% else %} away {% endif %}"
-    secondary: "It's {{states('sensor.time')}}"
-    active: "{{ is_state('light.bed_light', 'off') }}"
+    state: "{% if is_state('input_boolean.test_boolean', 'on')%} home {% else %} away {% endif %}"
+    secondary: "It's {{ now().strftime('%H:%M') }}"
+    active: "{{ is_state('light.bed_light', 'on') }}"
+  - entity: input_boolean.test_boolean
+    name: A toggle
   - type: custom:template-entity-row
-    icon: mdi:car
-    name: Hi there
-    condition: "{{is_state('input_boolean.car_home', 'on')}}"
+    icon: "{% if is_state('input_boolean.test_boolean', 'on')%} mdi:check-circle-outline {% else %} mdi:close-circle-outline {% endif %}"
+    name: "The toggle is {{states('input_boolean.test_boolean')}}"
+    state: "{% if is_state('input_boolean.test_boolean', 'on')%}"
+    active: "{{ is_state('input_boolean.test_boolean', 'on') }}"
+    color: "{% if is_state('input_boolean.test_boolean', 'on')%} green {% else %} red {% endif %}"
 ```
 
 ## Options

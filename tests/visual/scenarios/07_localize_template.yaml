@@ -1,0 +1,16 @@
+id: localize_template
+description: Localization template
+view_path: localize_template
+
+card:
+  type: entities
+  title: Localize
+  entities:
+    - type: custom:template-entity-row
+      name: "State is: _(ui.card.update.installing)"
+      state: '{{ "_(ui.card.update.installing)" }}'
+
+assertions:
+  - type: snapshot
+    name: 07_localize_template
+    threshold: 0.02

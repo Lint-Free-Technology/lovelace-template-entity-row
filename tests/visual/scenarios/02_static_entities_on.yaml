@@ -1,0 +1,43 @@
+id: static_entities_on
+description: Static row options with entities on
+view_path: static-entities-on
+
+setup:
+  - type: ha_service
+    domain: light
+    service: turn_on
+    data:
+      entity_id: light.bed_light
+      brightness: 255
+    settle_ms: 50
+
+card:
+  type: entities
+  title: Static Entities On
+  entities:
+    - light.bed_light
+    - type: section
+      label: icon
+    - type: custom:template-entity-row
+      icon: mdi:cog
+    - type: section
+      label: name
+    - type: custom:template-entity-row
+      name: Name
+    - type: section
+      label: state
+    - type: custom:template-entity-row
+      state: state
+    - type: section
+      label: secondary
+    - type: custom:template-entity-row
+      secondary: secondary
+    - type: section
+      label: image
+    - type: custom:template-entity-row
+      image: https://picsum.photos/id/433/50
+
+assertions:
+  - type: snapshot
+    name: 02_static_entities_on
+    threshold: 0.02
