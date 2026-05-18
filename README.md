@@ -37,20 +37,23 @@ See `tests/README.md` for setup and execution details.
 
 ```yaml
 type: entities
-title: Default
+title: Quick Start
 entities:
   - light.bed_light
-  - entity: input_boolean.car_home
   - type: custom:template-entity-row
     icon: mdi:lamp
     name: "The light is {{states('light.bed_light')}} but nobody's"
-    state: "{% if is_state('input_boolean.car_home', 'on')%} home {% else %} away {% endif %}"
-    secondary: "It's {{states('sensor.time')}}"
-    active: "{{ is_state('light.bed_light', 'off') }}"
+    state: "{% if is_state('input_boolean.test_boolean', 'on')%} home {% else %} away {% endif %}"
+    secondary: "It's {{ now().strftime('%H:%M') }}"
+    active: "{{ is_state('light.bed_light', 'on') }}"
+  - entity: input_boolean.test_boolean
+    name: A toggle
   - type: custom:template-entity-row
-    icon: mdi:car
-    name: Hi there
-    condition: "{{is_state('input_boolean.car_home', 'on')}}"
+    icon: "{% if is_state('input_boolean.test_boolean', 'on')%} mdi:check-circle-outline {% else %} mdi:close-circle-outline {% endif %}"
+    name: "The toggle is {{states('input_boolean.test_boolean')}}"
+    state: "{% if is_state('input_boolean.test_boolean', 'on')%}"
+    active: "{{ is_state('input_boolean.test_boolean', 'on') }}"
+    color: "{% if is_state('input_boolean.test_boolean', 'on')%} green {% else %} red {% endif %}"
 ```
 
 ## Options

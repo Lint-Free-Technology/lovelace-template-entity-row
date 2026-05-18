@@ -1,0 +1,90 @@
+id: templates_entities_off
+description: Template rendering with entities off
+view_path: templates-entities-off
+
+setup:
+  - type: ha_service
+    domain: light
+    service: turn_off
+    data:
+      entity_id: light.bed_light
+    settle_ms: 50
+  - type: ha_service
+    domain: input_boolean
+    service: turn_off
+    data:
+      entity_id: input_boolean.test_boolean
+    settle_ms: 50
+
+dashboard:
+  views:
+    - type: sections
+      max_columns: 4
+      title: Template Entity Row
+      path: templates-entities-off
+      sections:
+        - type: grid
+          cards:
+            - type: entities
+              title: Templates Entities Off 1
+              entities:
+                - entity: input_boolean.test_boolean
+                - type: section
+                  label: icon
+                - type: custom:template-entity-row
+                  icon: "{% if is_state('input_boolean.test_boolean', 'on') %} mdi:cog {% else %} mdi:cog-outline {% endif %}"
+                - type: section
+                  label: name
+                - type: custom:template-entity-row
+                  name: "Name for{% if is_state('input_boolean.test_boolean', 'on') %} active {% else %} inactive {% endif %}state"
+                - type: section
+                  label: state
+                - type: custom:template-entity-row
+                  state: "[{{states('input_boolean.test_boolean')}}]"
+                - type: section
+                  label: secondary
+                - type: custom:template-entity-row
+                  secondary: "{{states('input_boolean.test_boolean')}}"
+                - type: section
+                  label: image
+                - type: custom:template-entity-row
+                  image: |
+                    {%- set id = '433' if is_state('input_boolean.test_boolean', 'off') else '237' -%}
+                    https://picsum.photos/id/{{id}}/50
+                  secondary: |
+                    {%- set name = 'Bear' if is_state('input_boolean.test_boolean', 'off') else 'Dog' -%}
+                    {{ name}}
+        - type: grid
+          cards:
+            - type: entities
+              title: Templates Entities Off 2
+              entities:
+                - type: section
+                  label: active
+                - type: custom:template-entity-row
+                  icon: mdi:cog
+                  active: "{{is_state('input_boolean.test_boolean', 'on')}}"
+                - type: section
+                  label: condition
+                - type: custom:template-entity-row
+                  name: conditional
+                  condition: "{{is_state('input_boolean.test_boolean', 'on')}}"
+                - type: section
+                  label: color
+                - type: custom:template-entity-row
+                  icon: mdi:cog
+                  color: "rgb{{state_attr('light.bed_light', 'rgb_color')}}"
+                  active: "true"
+                - type: custom:template-entity-row
+                  icon: mdi:cog
+                  name: Changing
+                  color: "{{'teal' if is_state('input_boolean.test_boolean', 'on') else 'purple' }}"
+                - type: custom:template-entity-row
+                  icon: mdi:cog
+                  name: Changing
+                  color: "{{'purple' if is_state('input_boolean.test_boolean', 'on') else '' }}"
+
+assertions:
+  - type: snapshot
+    name: 05_templates_entities_off
+    threshold: 0.02

@@ -2,6 +2,21 @@ id: doc_readme_example
 description: README example screenshot
 view_path: readme-example
 
+setup:
+  - type: ha_service
+    domain: light
+    service: turn_on
+    data:
+      entity_id: light.bed_light
+      brightness: 255
+    settle_ms: 50
+  - type: ha_service
+    domain: input_boolean
+    service: turn_on
+    data:
+      entity_id: input_boolean.test_boolean
+    settle_ms: 50
+
 dashboard:
   title: template-entity-row
   views:
@@ -15,12 +30,83 @@ dashboard:
             - type: custom:template-entity-row
               icon: mdi:lamp
               name: "The light is {{states('light.bed_light')}} but nobody's"
-              state: "{% if is_state('input_boolean.car_home', 'on')%} home {% else %} away {% endif %}"
-              secondary: "It's {{states('sensor.time')}}"
-              active: "{{ is_state('light.bed_light', 'off') }}"
+              state: "{% if is_state('input_boolean.test_boolean', 'on')%} home {% else %} away {% endif %}"
+              secondary: "It's {{ now().strftime('%H:%M') }}"
+              active: "{{ is_state('light.bed_light', 'on') }}"
+            - entity: input_boolean.test_boolean
+              name: A toggle
+            - type: custom:template-entity-row
+              icon: "{% if is_state('input_boolean.test_boolean', 'on')%} mdi:check-circle-outline {% else %} mdi:close-circle-outline {% endif %}"
+              name: "The toggle is {{states('input_boolean.test_boolean')}}"
+              state: "{% if is_state('input_boolean.test_boolean', 'on')%}"
+              active: "{{ is_state('input_boolean.test_boolean', 'on') }}"
+              color: "{% if is_state('input_boolean.test_boolean', 'on')%} green {% else %} red {% endif %}"
 
-doc_image:
-  output: docs/source/assets/images/01_readme_example.png
+doc_animation:
+  output: docs/source/assets/animations/01_readme_example.gif
   root: hui-entities-card
   padding: 16
+  interval_ms: 66
   threshold: 0.02
+  cursor: pointer
+  segments:
+    - frames: 14   # ~1 s
+    - interactions:
+        - type: hover
+          root: "#states div:nth-child(1) hui-toggle-entity-row"
+          selector: ha-entity-toggle
+          settle_ms: 100
+      frames: 7   # ~0.5 s
+    - interactions:
+        - type: click
+          root: "#states div:nth-child(1) hui-toggle-entity-row"
+          selector: ha-entity-toggle
+          settle_ms: 50
+      frames: 3   # ~0.2 s
+      click_circle: true
+    - frames: 14   # ~1 s
+    - interactions:
+        - type: hover
+          root: "#states div:nth-child(3) hui-toggle-entity-row"
+          selector: ha-entity-toggle
+          settle_ms: 100
+      frames: 7   # ~0.5 s
+    - interactions:
+        - type: click
+          root: "#states div:nth-child(3) hui-toggle-entity-row"
+          selector: ha-entity-toggle
+          settle_ms: 50
+      frames: 3   # ~0.2 s
+      click_circle: true
+    - frames: 14   # ~1 s
+    - interactions:
+        - type: hover
+          root: "#states div:nth-child(1) hui-toggle-entity-row"
+          selector: ha-entity-toggle
+          settle_ms: 100
+      frames: 7   # ~0.5 s
+    - interactions:
+        - type: click
+          root: "#states div:nth-child(1) hui-toggle-entity-row"
+          selector: ha-entity-toggle
+          settle_ms: 50
+      frames: 3   # ~0.2 s
+      click_circle: true
+    - frames: 14   # ~1 s
+    - interactions:
+        - type: hover
+          root: "#states div:nth-child(3) hui-toggle-entity-row"
+          selector: ha-entity-toggle
+          settle_ms: 100
+      frames: 7   # ~0.5 s
+    - interactions:
+        - type: click
+          root: "#states div:nth-child(3) hui-toggle-entity-row"
+          selector: ha-entity-toggle
+          settle_ms: 50
+      frames: 3   # ~0.2 s
+      click_circle: true
+    - frames: 14   # ~1 s
+    - interactions:
+        - type: hover_away
+      frames: 14   # ~1 s

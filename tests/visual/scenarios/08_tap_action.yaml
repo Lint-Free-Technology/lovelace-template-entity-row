@@ -2,17 +2,25 @@ id: tap_action
 description: Tap/hold/double actions from reference/lovelace.yaml Test 6
 view_path: tap-action
 
+setup:
+  - type: ha_service
+    domain: input_boolean
+    service: turn_on
+    data:
+      entity_id: input_boolean.test_boolean
+    settle_ms: 50
+
 card:
   type: entities
   title: Tap action
   entities:
-    - entity: input_boolean.test
+    - entity: input_boolean.test_boolean
     - type: custom:template-entity-row
-      entity: input_boolean.test
+      entity: input_boolean.test_boolean
     - type: custom:template-entity-row
-      entity: input_boolean.test
+      entity: input_boolean.test_boolean
       name: "{% if is_state(config.entity, 'on') %} Toggle {% else %} More info {% endif %}"
-      tap_action: "{'action': '{% if is_state('input_boolean.test', 'on') %}toggle{% else %}more-info{% endif %}'}"
+      tap_action: "{'action': '{% if is_state('input_boolean.test_boolean', 'on') %}toggle{% else %}more-info{% endif %}'}"
       hold_action:
         action: more-info
     - type: custom:template-entity-row
@@ -33,7 +41,13 @@ card:
       entity: light.bed_light
       tap_action: { "action": "toggle" }
 
+interactions:
+  - type: click
+    root: hui-entities-card
+    selector: "#states div:nth-child(4) template-entity-row"
+    settle_ms: 100
+
 assertions:
   - type: snapshot
-    name: 06_tap_action
+    name: 08_tap_action
     threshold: 0.02

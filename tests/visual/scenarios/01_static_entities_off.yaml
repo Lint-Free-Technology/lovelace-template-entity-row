@@ -1,10 +1,18 @@
-id: static
-description: Static row options from reference/lovelace.yaml Test 1
-view_path: static
+id: static_entities_off
+description: Static row options with entities off
+view_path: static-entities-off
+
+setup:
+  - type: ha_service
+    domain: light
+    service: turn_off
+    data:
+      entity_id: light.bed_light
+    settle_ms: 50
 
 card:
   type: entities
-  title: Static
+  title: Static Entities Off
   entities:
     - light.bed_light
     - type: section
@@ -26,9 +34,9 @@ card:
     - type: section
       label: image
     - type: custom:template-entity-row
-      image: https://placekitten.com/50/50
+      image: https://picsum.photos/id/433/50
 
 assertions:
   - type: snapshot
-    name: 01_static
+    name: 01_static_entities_off
     threshold: 0.02

@@ -1,6 +1,6 @@
-id: localize
-description: Localization template from reference/lovelace.yaml Test 4
-view_path: localize
+id: localize_template
+description: Localization template
+view_path: localize_template
 
 card:
   type: entities
@@ -12,5 +12,5 @@ card:
 
 assertions:
   - type: snapshot
-    name: 04_localize
+    name: 07_localize_template
     threshold: 0.02
