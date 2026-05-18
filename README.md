@@ -33,7 +33,7 @@ See `tests/README.md` for setup and execution details.
 
 **Note:** This is _not_ a card. It's a row for an [entities](https://www.home-assistant.io/lovelace/entities/).
 
-![Skärminspelning 2020-01-03 kl  23 03 16 mov](https://user-images.githubusercontent.com/1299821/71752529-b627b000-2e7f-11ea-87ad-3b8f2d2cfe99.gif)
+![Quick start example](/docs/source/assets/animations/01_readme_example.gif)
 
 ```yaml
 type: entities
