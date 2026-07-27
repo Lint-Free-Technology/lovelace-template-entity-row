@@ -16,19 +16,6 @@ resources:
     type: module
 ```
 
-Legacy test harness reference configuration is available at `reference/lovelace.yaml`.
-
-## Visual test scaffold (ha-testcontainer)
-
-A `ha-testcontainer` visual test scaffold is included with scenario snapshots and doc-image scaffolding.
-
-- Scenario tests: `tests/visual/scenarios/*.yaml` + `tests/visual/test_scenarios.py`
-- Snapshot baselines directory: `tests/visual/snapshots/`
-- Doc image scenarios: `docs/scenarios/*.yaml` + `tests/visual/test_doc_images.py`
-- VS Code tasks: `.vscode/tasks.json`
-
-See `tests/README.md` for setup and execution details.
-
 ## Usage example
 
 **Note:** This is _not_ a card. It's a row for an [entities](https://www.home-assistant.io/lovelace/entities/).
@@ -97,11 +84,7 @@ Jinja templates have access to a few special variables. Those are:
 In evaluated templates the function `_(<key>)` (underscore) will localize the `<key>` to the current language.
 E.g. `_(component.binary_sensor.entity_component.motion.state.off)` will be replaced with `Clear` if your language is set to English.
 
-To find the available keys, open your browsers console, type in the following and press Enter:
-
-```javascript
-document.querySelector("home-assistant").hass.translationMetadata.translations;
-```
+To find the available keys you will need to browse the Home Assistant lokalise project. See [Home Assistant Internationalization](https://developers.home-assistant.io/docs/internationalization/) for more information.
 
 ### Actions
 
@@ -141,4 +124,15 @@ Because "toggle" means a toggle. It's the simplest possible way to control an en
 
 This may happen if you use the GUI editor to edit a template based value. Since Home Assistant redraws the row every time you make any change to the configuration in the GUI editor, it will try to render the template every time you push a key.
 Since the template will be invalid for most of the time while you're editing it, you will get a lot of errors. \
-There's unfortunately nothing I can easily do about this behavior.
+There's unfortunately nothing that can be easily done about this behavior.
+
+## Visual test scaffold (ha-testcontainer)
+
+A `ha-testcontainer` visual test scaffold is included with scenario snapshots and doc-image scaffolding.
+
+- Scenario tests: `tests/visual/scenarios/*.yaml` + `tests/visual/test_scenarios.py`
+- Snapshot baselines directory: `tests/visual/snapshots/`
+- Doc image scenarios: `docs/scenarios/*.yaml` + `tests/visual/test_doc_images.py`
+- VS Code tasks: `.vscode/tasks.json`
+
+See [tests/README.md](tests/README.md) for setup and execution details.
