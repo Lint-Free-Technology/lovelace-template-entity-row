@@ -1,3 +1,21 @@
+## [3.0.0-beta.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.2.1...v3.0.0-beta.1) (2026-07-28)
+
+### ⚠ BREAKING CHANGES
+
+* Home Assistant 2026.8.0 or greater required.
+
+### ⭐ New Features
+
+* Add `color_inactive` config to allow for `color` to be set when `state` is inactive. Allows for compatability for coloring icon when inactive after Home Assistant 2026.8.0 ([b28f4c0](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/b28f4c031c772d818dd17b0acb713695fa1a125b))
+
+### 📦 Dependency Upgrades
+
+* Update to Typescript v7, use esbuild ([8579065](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/8579065546ff9f2653ba2185c7fd583571f97b68))
+
+### ⚙️ Miscellaneous
+
+* Migrate `state_color` to `color` for generic row config. `state_color: true` is migrated to `color: state`. `state_color: false` is migrated to `color: none`. Default is `color: state`. These changes reflect changes in Home Assistant 2026.8.0. ([5320320](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/5320320799d6dbb1bec2f1979e91732de7bedefb))
+
 ## [2.2.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.2.0...v2.2.1) (2026-05-18)
 
 ### ⚙️ Miscellaneous
