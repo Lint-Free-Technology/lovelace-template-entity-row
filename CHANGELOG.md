@@ -1,3 +1,9 @@
+## [3.0.0-beta.2](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2026-07-28)
+
+### ⚙️ Miscellaneous
+
+* Set minimum HA Version to 2026.8.0.dev0 so HACS will allow against dev builds and greater. ([5e7dfca](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/5e7dfca4640fb2ca341d343239bd3bbb1836e97d))
+
 ## [3.0.0-beta.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.2.1...v3.0.0-beta.1) (2026-07-28)
 
 ### ⚠ BREAKING CHANGES
