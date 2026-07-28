@@ -50,4 +50,4 @@ interactions:
 assertions:
   - type: snapshot
     name: 08_tap_action
-    threshold: 0.02
+    threshold: 0.01

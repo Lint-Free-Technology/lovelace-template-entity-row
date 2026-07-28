@@ -9,6 +9,7 @@ setup:
     data:
       entity_id: light.bed_light
       brightness: 255
+      color_temp_kelvin: 2631
     settle_ms: 50
   - type: ha_service
     domain: input_boolean
@@ -88,4 +89,4 @@ dashboard:
 assertions:
   - type: snapshot
     name: 06_templates_entities_on
-    threshold: 0.02
+    threshold: 0.01

@@ -87,4 +87,4 @@ dashboard:
 assertions:
   - type: snapshot
     name: 05_templates_entities_off
-    threshold: 0.02
+    threshold: 0.01

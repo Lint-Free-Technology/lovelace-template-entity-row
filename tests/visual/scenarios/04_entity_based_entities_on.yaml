@@ -9,6 +9,7 @@ setup:
     data:
       entity_id: light.bed_light
       brightness: 255
+      color_temp_kelvin: 2631
     settle_ms: 50
   - type: ha_service
     domain: input_boolean
@@ -50,6 +51,7 @@ dashboard:
                 - type: custom:template-entity-row
                   entity: light.bed_light
                   name: Color
+                  color_inactive: true
                   color: magenta
                 - type: section
                   label: name
@@ -108,4 +110,4 @@ interactions:
 assertions:
   - type: snapshot
     name: 04_entity_based_entities_on
-    threshold: 0.02
+    threshold: 0.01

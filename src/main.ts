@@ -5,6 +5,8 @@ import { bindActionHandler, buttonAction } from "./helpers/action";
 import pjson from "../package.json";
 import { bind_template, hasTemplate } from "./helpers/templates";
 import { hass } from "./helpers/hass";
+import { stateActive } from "./helpers/common/entity/state_active";
+import { computeCssColor } from "./helpers/common/entity/compute_color";
 
 const OPTIONS = [
   "icon",
@@ -140,7 +142,6 @@ class TemplateEntityRow extends LitElement {
         ? this.config.icon || "no:icon"
         : undefined;
     const image = this.config.image;
-    const color = this.config.color;
 
     const name =
       this.config.name ??
@@ -149,7 +150,8 @@ class TemplateEntityRow extends LitElement {
     const secondary = this.config.secondary;
     entity.state = this.config.state ?? base?.state;
     const stateDisplay = this.config.state_display ?? (this.config.state ? entity.state : this.hass.formatEntityState(entity));
-    const stateColor = entity.state ? this.config.state_color ?? color === undefined : false;
+    const migratedStateColor = this.config.state_color === true ? "state" : this.config.state_color == false ? "none" : undefined;
+    const color = this.config.color ?? migratedStateColor;
 
     const active = this.config.active !== undefined ? this.config.active : undefined;
     if (active) {
@@ -158,6 +160,17 @@ class TemplateEntityRow extends LitElement {
     } else if (active === false) {
       entity.state = "off";
     }
+
+    // Since Home Assistant 2026.8.0 setting color to a color token or CSS only applies if state is active
+    // So if state is not active and color_inactive and color is set, we set `--state-icon-color` to the 
+    // color value so that it is applied regardless of state
+    const stateIconColorStyle = 
+      ( this.config.color_inactive && 
+        color 
+        && color !== "state" 
+        && color !== "none" 
+        && !stateActive(entity)
+      ) ? `--state-icon-color: ${computeCssColor(color)};` : undefined;
 
     const hidden =
       this.config.condition !== undefined &&
@@ -179,8 +192,8 @@ class TemplateEntityRow extends LitElement {
           .overrideIcon=${icon}
           .overrideImage=${image}
           .color=${color}
+          style=${stateIconColorStyle !== undefined ? stateIconColorStyle : ""}
           class=${classMap({ pointer: has_action })}
-          .stateColor=${stateColor}
         ></state-badge>
         <div
           class=${classMap({ info: true, pointer: has_action })}

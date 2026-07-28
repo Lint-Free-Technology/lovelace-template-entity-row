@@ -13,4 +13,4 @@ card:
 assertions:
   - type: snapshot
     name: 07_localize_template
-    threshold: 0.02
+    threshold: 0.01
