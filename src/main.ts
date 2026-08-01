@@ -18,10 +18,6 @@ const OPTIONS = [
   "condition",
   "image",
   "entity",
-  // Secret option -
-  // Set color to a hs-color value ("[<hue>,<saturation>]")
-  // with hue in the range 0-360 and saturation 0-100.
-  // Works only if entity is unset and active is set.
   "color",
   "toggle",
   "tap_action",
