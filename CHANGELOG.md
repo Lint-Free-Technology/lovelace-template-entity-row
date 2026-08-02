@@ -1,3 +1,9 @@
+## [3.0.0-beta.4](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.3...v3.0.0-beta.4) (2026-08-02)
+
+### ⭐ New Features
+
+* Allow action overrides for icon and state areas. Allow action entity override for secondary, icon and state areas. ([#49](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/49)) ([d88b2a1](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/d88b2a13c33de7e752e741574e8d9129baa8aefd))
+
 ## [3.0.0-beta.3](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.2...v3.0.0-beta.3) (2026-08-02)
 
 ### 🐞 Bug Fixes
