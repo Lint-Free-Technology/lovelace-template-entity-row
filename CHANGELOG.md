@@ -1,3 +1,9 @@
+## [3.0.0-beta.3](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.2...v3.0.0-beta.3) (2026-08-02)
+
+### 🐞 Bug Fixes
+
+* Correctly set `color` default to `state` when neither `state_color` or `color` is set. ([940df01](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/940df01c313a4038dca6f9e0286774cc995b152f))
+
 ## [3.0.0-beta.2](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2026-07-28)
 
 ### ⚙️ Miscellaneous
