@@ -45,18 +45,28 @@ entities:
 
 ## Options
 
-- `icon`, `name`, `state`, `secondary`, `image` selects what icon, name, state, secondary_info text and entity_picture to display respectively.
-- `active` if this evaluates to `true` or `false`, the icon gets will always look active or inactive respectively. This should be used only if **not** using `entity`, otherwise you are best to template `state` to a valid raw (non localized) state for the entity's device class. This enables `color` to work correctly when setting `entity` but wishing to override `state`.
-- `entity` if this evaluates to an entity id, `icon`, `name`, `state` and `image` will be taken from that entity unless manually overridden. Specifying an `entity` will also let you use [actions](https://www.home-assistant.io/dashboards/actions/). If you don't override `state` or `state_display` then the displayed state text will be the localized `entity` state, which includes any units.
-- `state_display` if this is set then the displayed state text will be the text or rendered template as text. If you are using an `entity` but overriding `state`, then `state` needs to be a valid raw (non localized) state for the entity's device class. Use `state_display` to display the any localized state you wish to show.
-- `condition` if this is set but does not evaluate to "true", the row is not displayed.
-- `toggle` if this evaluates to "true" a toggle is shown instead of the state. The toggle is connected to the `entity`. This will only show a toggle, nothing else. No sliders, no dropdowns, no media controls. `toggle` means Toggle. NOTE: Both `toggle` and `button` cannot be set together.
-- `button` if this is set then then the state will be replaced with a button. If the value for `button` is `true` then the translated string `Press` will be used for the button. Otherwise a string is expected and will be used. If `button_action` is not set then the default action will be `input_button.press` for the config entity. NOTE: Both `toggle` and `button` cannot be set together.
-- `tap_action`, `hold_action`, `double_tap_action`, `button_action`: see [Actions](#actions).
-- `color` drives the state color of the icon. By default, the color is based on the `state`, `domain`, and `device_class` of the entity. To take default color, set to `none`. It accepts `state`, `none`, a Home Assistant [color token](https://www.home-assistant.io/dashboards/tile/#available-colors), or a hex color code.
-- `color_inactive` if this is set to `true` and `state` is not active, `color` is set by overriding `--state-icon-color` to `color`. This is required since Home Assistant 2026.8.0 where `<state-badge>` uses `color` only when active.
-- `nested_templates` if set to `true`, enables nested bracket syntax (`[[`/`]]`) as an alternative to the standard `{{`/`}}` Jinja2 delimiters. This is useful in if using template entity in a card that uses Jinja templates itself.
-  
+<!-- markdownlint-disable MD033 -->
+| Name | Type | Options | Description |
+| --- | --- | --- | --- |
+| `icon`<br>`name`<br>`state`<br>`secondary`<br>`image` | string | -| selects what `icon`, `name`, `state`, `secondary_info` text and `entity_picture` to display respectively. |
+| `active` | boolean | `true` / `false`| If this evaluates to `true` or `false`, the icon  will always look active or inactive respectively. This should be used only if **not** using `entity`, otherwise you are best to template `state` to a valid raw (non localized) state for the entity’s device class. This enables `color` to work correctly when setting `entity` but wishing to override `state`. |
+| `entity` | string | - | If this evaluates to an entity id, `icon`, `name`, `state` and `image` will be taken from that entity unless manually overridden. Specifying an `entity` will also let you use [actions](https://www.home-assistant.io/dashboards/actions/). If you don’t override `state` or `state_display` then the displayed state text will be the localized `entity` state, which includes any units. |
+| `state_display` | string | - | If this is set then the displayed state text will be the text or rendered template as text. If you are using an `entity` but overriding `state`, then `state`needs to be a valid raw (non localized) state for the entity’s device class. Use `state_display` to display the any localized state you wish to show. |
+| `condition` | boolean | - | If this is set but does not evaluate to `true`, the row is hidden and not displayed. |
+| `toggle` | boolean | `true` / `false` | If this evaluates to `true` a toggle is shown instead of the state. The toggle is connected to the `entity`. This will only show a toggle, nothing else. No sliders, no dropdowns, no media controls. `toggle` means Toggle. NOTE: Both `toggle` and `button` cannot be set together. |
+| `button` | boolean | `true` / `false` | If this is set then then the state will be replaced with a button. If the value for `button` is `true` then the translated string `Press` will be used for the button. Otherwise a string is expected and will be used. If `button_action` is not set then the default action will be `input_button.press` for the config entity. NOTE: Both `toggle` and `button` cannot be set together. |
+| `button_action` | object | Action config | Button action. Set to an action config. If not set the default action will be `input_button.press` for the config entity. |
+| `color` | string | `state` (default)<br>`none`<br>color token<br>CSS color | drives the state color of the icon. By default, the color is based on the `state`, `domain`, and `device_class` of the entity. To take default color, set to `none`. It accepts `state`, `none`, a Home Assistant [color token](https://www.home-assistant.io/dashboards/tile/#available-colors), or a CSS color. |
+| `color_inactive` | boolean | `true` / `false` | If this is set to `true` and `state` is not active, `color` is set by overriding `--state-icon-color` to `color`. This is required since Home Assistant 2026.8.0 where `<state-badge>` uses `color` only when active. |
+| `nested_templates` | boolean | `true` / `false` | If set to `true`, enables nested bracket syntax (`[[`/`]]`) as an alternative to the standard `{{`/`}}` Jinja2 delimiters. This is useful in if using template entity in a card that uses Jinja templates itself. |
+| `tap_action`<br>`hold_action`<br>`double_tap_action` | object | Action config | Primary actions. See [Actions](#actions). |
+| `action_entity` | string | - | If set, overrides the entity id used for `tap_action`, `hold_action` and `double_tap_action`. See [Actions](#actions) |
+| `secondary_actions_entity` | string | - | If set, overrides the entity id used for `tap_action`, `hold_action` and `double_tap_action` when the action is executed on the `secondary` area. This allows for the primary `tap_action` to be an entity actions (`more-info`, `toggle` etc.) but override the entity id used for `secondary`. See [Actions](#actions) |
+| `icon_tap_action`<br>`icon_hold_action`<br>`icon_double_tap_action` | object | Action config | Icon actions. See [Actions](#actions). |
+| `icon_action_entity` | string | - | If set, overrides the entity id used for `icon_tap_action`, `icon_hold_action` and `icon_double_tap_action`. See [Actions](#actions) |
+| `state_tap_action`<br>`state_hold_action`<br>`state_double_tap_action` | object | Action config | State actions. See [Actions](#actions). |
+| `state_action_entity` | string | - | If set, overrides the entity id used for `state_tap_action`, `state_hold_action` and `state_double_tap_action`. See [Actions](#actions) |
+
   | Standard Jinja2 | Nested (`nested_templates: true`) |
   | - | - |
   | `{{ expression }}` | `[[ expression ]]` |
@@ -88,9 +98,33 @@ To find the available keys you will need to browse the Home Assistant lokalise p
 
 ### Actions
 
-`tap_action`, `hold_action`, `double_tap_action` and `button_action` can be templated if the template evaluates to a valid [action configuration](https://www.home-assistant.io/dashboards/actions/) in python format. Standard YAML without templates works too.
+Actions are applied to the `info`, `icon` and `state` areas and will take primary actions by default. Actions for `icon` and `state` can be set specifically for each action type. 
 
-Eg:
+- Primary:
+  - `tap_action`
+  - `hold_action`
+  - `double_tap_action`
+- Icon actions:
+  - `icon_tap_action` if set, otherwise `tap_action`
+  - `icon_hold_action` if set, otherwise `hold_action`
+  - `icon_double_tap_action` if set, otherwise `double_tap_action`
+- State actions:
+  - `state_tap_action` if set, otherwise `tap_action`
+  - `state_hold_action` if set, otherwise `hold_action`
+  - `state_double_tap_action` if set, otherwise `double_tap_action`
+
+An override can be set for entity if for actions that operate on the config entity (e.g. `more-info`, `toggle`).
+
+- Primary:
+  - `actions_entity` if set, otherwise main config `entity`
+- Icon:
+  - `icon_actions_entity` if set, then `actions_entity` if set, otherwise main config `entity`
+- State:
+  - `state_actions_entity` if set, then `actions_entity` if set, otherwise main config `entity`
+
+All action config objects can be templated. The template needs to evaluate to a valid [action configuration](https://www.home-assistant.io/dashboards/actions/) in python format. Standard YAML object without templates works too.
+
+Actions and templates:
 
 ```yaml
 type: custom:template-entity-row
@@ -108,6 +142,19 @@ tap_action: |
   }
 double_tap_action:
   action: toggle
+```
+
+Override actions:
+
+```yaml
+type: custom:template-entity-row
+entity: sun.sun
+secondary_action_entity: sensor.sun_next_dawn # tap on secondary line will show more-info for sensor.sun_next_dawn
+secondary: |
+  Next dawn in {{ time_until(as_datetime(states('sensor.sun_next_dawn'))) }}
+icon_tap_action: # tap on icon will navigate to logbook for sun.sun and sun.next_dawn
+  action: navigate
+  navigation_path: /logbook?entity_id=sun.sun%2Csensor.sun_next_dawn
 ```
 
 ## FAQ
