@@ -132,7 +132,11 @@ class TemplateEntityRow extends LitElement {
   }
 
   _bindActionHandler(element, part: "" | "icon" | "state" = "") {
+    if (!element) return;
+    if ((element as any).__terActionBound) return;
     if (!this._hasAction(part)) return;
+
+    (element as any).__terActionBound = true;
     const options = {
       hasHold: this._actionConfig(part, "hold") !== undefined,
       hasDoubleClick: this._actionConfig(part, "double_tap") !== undefined,
@@ -192,7 +196,12 @@ class TemplateEntityRow extends LitElement {
 
       this._bindActionHandler(this.shadowRoot.querySelector(".info"));
       this._bindActionHandler(this.shadowRoot.querySelector("state-badge"), "icon");
-      this._bindActionHandler(this.shadowRoot.querySelector(".state"), "state");
+
+      const show_toggle = this.config.toggle && this.config.entity;
+      const show_button = this.config.button;
+      if (!show_toggle && !show_button) {
+        this._bindActionHandler(this.shadowRoot.querySelector(".state"), "state");
+      }
     }
   }
 
