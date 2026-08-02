@@ -147,7 +147,7 @@ class TemplateEntityRow extends LitElement {
     entity.state = this.config.state ?? base?.state;
     const stateDisplay = this.config.state_display ?? (this.config.state ? entity.state : this.hass.formatEntityState(entity));
     const migratedStateColor = this.config.state_color === true ? "state" : this.config.state_color == false ? "none" : undefined;
-    const color = this.config.color ?? migratedStateColor;
+    const color = this.config.color ?? migratedStateColor ?? "state";
 
     const active = this.config.active !== undefined ? this.config.active : undefined;
     if (active) {

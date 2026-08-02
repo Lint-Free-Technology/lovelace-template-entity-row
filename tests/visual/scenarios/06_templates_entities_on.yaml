@@ -17,6 +17,12 @@ setup:
     data:
       entity_id: input_boolean.test_boolean
     settle_ms: 50
+  - type: ha_service
+    domain: switch
+    service: turn_on
+    data:
+      entity_id: switch.decorative_lights
+    settle_ms: 50
 
 dashboard:
   views:
@@ -73,6 +79,9 @@ dashboard:
                   condition: "{{is_state('input_boolean.test_boolean', 'on')}}"
                 - type: section
                   label: color
+                - type: custom:template-entity-row
+                  icon: mdi:cog
+                  entity: switch.decorative_lights
                 - type: custom:template-entity-row
                   icon: mdi:cog
                   color: "rgb{{state_attr('light.bed_light', 'rgb_color')}}"
