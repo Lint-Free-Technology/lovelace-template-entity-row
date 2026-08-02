@@ -1,0 +1,145 @@
+id: action_overrides
+description: Action overrides with entities on
+view_path: action-overrides
+
+setup:
+  - type: ha_service
+    domain: input_boolean
+    service: turn_on
+    data:
+      entity_id: input_boolean.test_boolean
+    settle_ms: 50
+  - type: ha_service
+    domain: input_number
+    service: set_value
+    data:
+      entity_id: input_number.test_number
+      value: 1
+    settle_ms: 50
+
+card:
+  type: entities
+  title: Tap action
+  entities:
+    - type: custom:template-entity-row
+      entity: input_boolean.test_boolean
+      tap_action:
+        action: none
+    - type: custom:template-entity-row
+      entity: input_boolean.test_boolean
+      hold_action:
+        action: more-info
+    - type: custom:template-entity-row
+      entity: input_boolean.test_boolean
+      double_tap_action:
+        action: more-info
+    - type: custom:template-entity-row
+      entity: input_boolean.test_boolean
+      tap_action:
+        action: none
+      icon_tap_action:
+        action: perform-action
+        perform_action: input_number.increment
+        target:
+          entity_id: input_number.test_number
+    - type: custom:template-entity-row
+      entity: input_boolean.test_boolean
+      tap_action:
+        action: none
+      state_tap_action:
+        action: perform-action
+        perform_action: input_number.increment
+        target:
+          entity_id: input_number.test_number
+    - input_number.test_number
+
+interactions:
+  - type: click
+    root: "#states div:nth-of-type(4) template-entity-row"
+    selector: "state-badge"
+    settle_ms: 50
+  - type: click
+    root: "#states div:nth-of-type(5) template-entity-row"
+    selector: ".state"
+    settle_ms: 50
+
+assertions:
+  - type: css_property
+    root: "#states div:nth-of-type(1) template-entity-row"
+    selector: ".info"
+    property: "cursor"
+    expected: "auto"
+  - type: css_property
+    root: "#states div:nth-of-type(1) template-entity-row"
+    selector: "state-badge"
+    property: "cursor"
+    expected: "auto"
+  - type: css_property
+    root: "#states div:nth-of-type(1) template-entity-row"
+    selector: ".state"
+    property: "cursor"
+    expected: "auto"
+  - type: css_property
+    root: "#states div:nth-of-type(2) template-entity-row"
+    selector: ".info"
+    property: "cursor"
+    expected: "pointer"
+  - type: css_property
+    root: "#states div:nth-of-type(2) template-entity-row"
+    selector: "state-badge"
+    property: "cursor"
+    expected: "pointer"
+  - type: css_property
+    root: "#states div:nth-of-type(2) template-entity-row"
+    selector: ".state"
+    property: "cursor"
+    expected: "pointer"
+  - type: css_property
+    root: "#states div:nth-of-type(3) template-entity-row"
+    selector: ".info"
+    property: "cursor"
+    expected: "pointer"
+  - type: css_property
+    root: "#states div:nth-of-type(3) template-entity-row"
+    selector: "state-badge"
+    property: "cursor"
+    expected: "pointer"
+  - type: css_property
+    root: "#states div:nth-of-type(3) template-entity-row"
+    selector: ".state"
+    property: "cursor"
+    expected: "pointer"
+  - type: css_property
+    root: "#states div:nth-of-type(4) template-entity-row"
+    selector: ".info"
+    property: "cursor"
+    expected: "auto"
+  - type: css_property
+    root: "#states div:nth-of-type(4) template-entity-row"
+    selector: "state-badge"
+    property: "cursor"
+    expected: "pointer"
+  - type: css_property
+    root: "#states div:nth-of-type(4) template-entity-row"
+    selector: ".state"
+    property: "cursor"
+    expected: "auto"
+  - type: css_property
+    root: "#states div:nth-of-type(5) template-entity-row"
+    selector: ".info"
+    property: "cursor"
+    expected: "auto"
+  - type: css_property
+    root: "#states div:nth-of-type(5) template-entity-row"
+    selector: "state-badge"
+    property: "cursor"
+    expected: "auto"
+  - type: css_property
+    root: "#states div:nth-of-type(5) template-entity-row"
+    selector: ".state"
+    property: "cursor"
+    expected: "pointer"
+  - type: text_equals
+    root: "#states div:nth-of-type(6) hui-input-number-entity-row"
+    selector: ".state"
+    expected: "3"

@@ -1,5 +1,5 @@
 import { LitElement, html, css, PropertyValues } from "lit";
-import { property } from "lit/decorators.js";
+import { property, queryAsync } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { bindActionHandler, buttonAction } from "./helpers/action";
 import pjson from "../package.json";
@@ -42,6 +42,12 @@ class TemplateEntityRow extends LitElement {
   @property() hass;
   @property() config; // Rendered configuration of the row to display
   @property() _action;
+  
+  @queryAsync(".info") _infoElement;
+
+  private _infoActionElement: HTMLElement;
+  private _boundInfoActionListener = this._infoActionListener.bind(this);
+  private _infoActionEvents = ["mousedown", "touchstart", "click", "keydown", "contextmenu"];
 
   setConfig(config) {
     if (config.toggle !== undefined && config.button !== undefined) {
@@ -77,27 +83,6 @@ class TemplateEntityRow extends LitElement {
   }
 
   async firstUpdated() {
-    // Hijack the action handler from the hidden generic entity row in the #staging area
-    // Much easier than trying to implement all of this ourselves
-    const gen_row = this.shadowRoot.querySelector(
-      "#staging hui-generic-entity-row"
-    ) as any;
-    if (!gen_row) return;
-    await gen_row.updateComplete;
-    this._action = gen_row._handleAction;
-    const options = {
-      hasHold: this._config.hold_action !== undefined,
-      hasDoubleClick: this._config.double_tap_action !== undefined,
-    };
-    if (
-      (this.config.entity && String(this.config.tap_action?.action).toLowerCase() != "none") ||
-      (this.config.tap_action && String(this.config.tap_action?.action).toLowerCase() != "none") ||
-      (this.config.hold_action && String(this.config.hold_action?.action).toLowerCase() != "none") ||
-      (this.config.double_tap_action && String(this.config.double_tap_action?.action).toLowerCase() != "none")
-    ) {
-      bindActionHandler(this.shadowRoot.querySelector("state-badge"), options);
-      bindActionHandler(this.shadowRoot.querySelector(".info"), options);
-    }
     const condition = this.config.condition === undefined ? true
       : String(this.config.condition).toLowerCase() === "true";
     this.dispatchEvent(
@@ -106,8 +91,90 @@ class TemplateEntityRow extends LitElement {
     );
   }
 
-  _actionHandler(ev) {
-    return this._action?.(ev);
+  _actionEntity(part?: "" | "icon" | "state" | "secondary") {
+    let actionEntity;
+    if (part) {
+      actionEntity = this.config[`${part}_action_entity`];
+    }
+    return actionEntity ?? this.config[`action_entity`] ?? this.config.entity;
+  }
+
+  _actionConfig(part?: "" | "icon" | "state", action: string = "tap") {
+    let actionConfig;
+    if (part) {
+      actionConfig = this.config[`${part}_${action}_action`];
+    }
+    return actionConfig ?? this.config[`${action}_action`];
+  }
+
+  _hasAction(part: "" | "icon" | "state" = "") {
+    const actionsEntity = this._actionEntity(part);
+    const tapActionConfig = this._actionConfig(part);
+    const holdActionConfig = this._actionConfig(part, "hold");
+    const doubleTapActionConfig = this._actionConfig(part, "double_tap");
+    return (
+      (actionsEntity && String(tapActionConfig?.action).toLowerCase() != "none") ||
+      (tapActionConfig && String(tapActionConfig.action).toLowerCase() != "none") ||
+      (holdActionConfig && String(holdActionConfig.action).toLowerCase() != "none") ||
+      (doubleTapActionConfig && String(doubleTapActionConfig.action).toLowerCase() != "none")
+    );
+  }
+
+  _infoActionListener(ev) {
+    this._infoActionElement = ev.target;
+  }
+
+  _unbindInfoActionHandler(element) {
+    if (!element) return;
+    this._infoActionEvents.forEach((event) => {
+      element.removeEventListener(event, this._boundInfoActionListener, { capture: true });
+    });
+  }
+
+  _bindActionHandler(element, part: "" | "icon" | "state" = "") {
+    if (!this._hasAction(part)) return;
+    const options = {
+      hasHold: this._actionConfig(part, "hold") !== undefined,
+      hasDoubleClick: this._actionConfig(part, "double_tap") !== undefined,
+    };
+    bindActionHandler(element, options);
+  }
+
+  _infoActionHandler(ev) {
+    const config = { ...this.config };
+    config.tap_action = this._actionConfig();
+    config.hold_action = this._actionConfig("", "hold");
+    config.double_tap_action = this._actionConfig("", "double_tap");
+    if (this._infoActionElement?.classList.contains("secondary")) {
+      config.entity = this._actionEntity("secondary");
+    } else {
+      config.entity = this._actionEntity();
+    }
+    this.dispatchEvent(
+      new CustomEvent("hass-action", { detail: { config, action: ev.detail.action }, bubbles: true, composed: true })
+    );
+  }
+
+  _iconActionHandler(ev) {
+    const config = { ...this.config };
+    config.tap_action = this._actionConfig("icon");
+    config.hold_action = this._actionConfig("icon", "hold");
+    config.double_tap_action = this._actionConfig("icon", "double_tap");
+    config.entity = this._actionEntity("icon");
+    this.dispatchEvent(
+      new CustomEvent("hass-action", { detail: { config, action: ev.detail.action }, bubbles: true, composed: true })
+    );
+  }
+
+  _stateActionHandler(ev) {
+    const config = { ...this.config };
+    config.tap_action = this._actionConfig("state");
+    config.hold_action = this._actionConfig("state", "hold");
+    config.double_tap_action = this._actionConfig("state", "double_tap");
+    config.entity = this._actionEntity("state");
+    this.dispatchEvent(
+      new CustomEvent("hass-action", { detail: { config, action: ev.detail.action }, bubbles: true, composed: true })
+    );
   }
 
   protected async updated(changedProperties: PropertyValues) {
@@ -122,7 +189,34 @@ class TemplateEntityRow extends LitElement {
             { detail: { row: this, value: newCondition }, bubbles: true, composed: true }) 
         );
       }
+
+      this._bindActionHandler(this.shadowRoot.querySelector(".info"));
+      this._bindActionHandler(this.shadowRoot.querySelector("state-badge"), "icon");
+
+      const show_toggle = this.config.toggle && this.config.entity;
+      const show_button = this.config.button;
+      if (!show_toggle && !show_button) {
+        this._bindActionHandler(this.shadowRoot.querySelector(".state"), "state");
+      }
     }
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this._infoElement.then((element) => {
+      this._infoActionEvents.forEach((event) => {
+        element.addEventListener(event, this._boundInfoActionListener, { capture: true });
+      });
+    });
+  }
+
+  disconnectedCallback() {
+    this._infoElement.then((element) => {
+      this._infoActionEvents.forEach((event) => {
+        element.removeEventListener(event, this._boundInfoActionListener, { capture: true });
+      });
+    });
+    super.disconnectedCallback();
   }
 
   render() {
@@ -173,32 +267,33 @@ class TemplateEntityRow extends LitElement {
       String(this.config.condition).toLowerCase() !== "true";
     const show_toggle = this.config.toggle && this.config.entity;
     const show_button = this.config.button;
-    const has_action =
-      (this.config.entity && String(this.config.tap_action?.action).toLowerCase() != "none") ||
-      (this.config.tap_action && String(this.config.tap_action?.action).toLowerCase() != "none") ||
-      (this.config.hold_action && String(this.config.hold_action?.action).toLowerCase() != "none") ||
-      (this.config.double_tap_action && String(this.config.double_tap_action?.action).toLowerCase() != "none")
+    const has_action = this._hasAction();
+    const has_icon_action = this._hasAction("icon");
+    const has_state_action = this._hasAction("state");
 
     return html`
       <div id="wrapper" class="${hidden ? "hidden" : ""}">
         <state-badge
           .hass=${this.hass}
           .stateObj=${entity}
-          @action=${this._actionHandler}
+          @action=${this._iconActionHandler}
           .overrideIcon=${icon}
           .overrideImage=${image}
           .color=${color}
           style=${stateIconColorStyle !== undefined ? stateIconColorStyle : ""}
-          class=${classMap({ pointer: has_action })}
+          class=${classMap({ pointer: has_icon_action })}
         ></state-badge>
         <div
           class=${classMap({ info: true, pointer: has_action })}
-          @action="${this._actionHandler}"
+          @action="${this._infoActionHandler}"
         >
           ${name}
           <div class="secondary">${secondary}</div>
         </div>
-        <div class="state">
+        <div
+          @action="${!show_toggle && !show_button ? this._stateActionHandler : undefined}"
+          class=${classMap({ state: true, pointer: !show_toggle && !show_button && has_state_action })}
+        >
           ${show_toggle
             ? html`<ha-entity-toggle .hass=${this.hass} .stateObj=${entity}>
               </ha-entity-toggle>`
@@ -215,10 +310,6 @@ class TemplateEntityRow extends LitElement {
             : stateDisplay
           }
         </div>
-      </div>
-      <div id="staging">
-        <hui-generic-entity-row .hass=${this.hass} .config=${this.config}>
-        </hui-generic-entity-row>
       </div>
     `;
   }
@@ -247,9 +338,6 @@ class TemplateEntityRow extends LitElement {
           min-height: 40px;
         }
         #wrapper.hidden {
-          display: none;
-        }
-        #staging {
           display: none;
         }
       `,
