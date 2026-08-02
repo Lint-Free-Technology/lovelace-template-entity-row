@@ -132,11 +132,7 @@ class TemplateEntityRow extends LitElement {
   }
 
   _bindActionHandler(element, part: "" | "icon" | "state" = "") {
-    if (!element) return;
-    if ((element as any).__terActionBound) return;
     if (!this._hasAction(part)) return;
-
-    (element as any).__terActionBound = true;
     const options = {
       hasHold: this._actionConfig(part, "hold") !== undefined,
       hasDoubleClick: this._actionConfig(part, "double_tap") !== undefined,
