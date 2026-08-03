@@ -116,11 +116,11 @@ Actions are applied to the `info`, `icon` and `state` areas and will take primar
 An override can be set for entity if for actions that operate on the config entity (e.g. `more-info`, `toggle`).
 
 - Primary:
-  - `actions_entity` if set, otherwise main config `entity`
+  - `action_entity` if set, otherwise main config `entity`
 - Icon:
-  - `icon_actions_entity` if set, then `actions_entity` if set, otherwise main config `entity`
+  - `icon_action_entity` if set, then `action_entity` if set, otherwise main config `entity`
 - State:
-  - `state_actions_entity` if set, then `actions_entity` if set, otherwise main config `entity`
+  - `state_action_entity` if set, then `action_entity` if set, otherwise main config `entity`
 
 All action config objects can be templated. The template needs to evaluate to a valid [action configuration](https://www.home-assistant.io/dashboards/actions/) in python format. Standard YAML object without templates works too.
 
