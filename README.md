@@ -101,7 +101,7 @@ To find the available keys you will need to browse the Home Assistant lokalise p
 
 `name` supports the standard Home Assistant [flexible name object](https://www.home-assistant.io/dashboards/naming/). This can be a string for a simple name, a single flexible name object or a list of flexible name objects.
 
-Flexible name objects can be templated. The template needs to evaluate to a valid [flexible name object](https://www.home-assistant.io/dashboards/actions/) in python format, either an object with one flexible name, or a list (array) of flexible name objects. Standard YAML object without templates works too.
+Flexible name objects can be templated. The template needs to evaluate to a valid [flexible name object](https://www.home-assistant.io/dashboards/naming/) (either a single object or a list/array of objects). Standard YAML object without templates works too.
 
 Flexible naming:
 
