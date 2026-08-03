@@ -241,10 +241,8 @@ class TemplateEntityRow extends LitElement {
         : undefined;
     const image = this.config.image;
 
-    const name =
-      this.config.name ??
-      entity?.attributes?.friendly_name ??
-      entity?.entity_id;
+
+    const name = this.hass.formatEntityName(entity, this.config.name);
     const secondary = this.config.secondary;
     entity.state = this.config.state ?? base?.state;
     const stateDisplay = this.config.state_display ?? (this.config.state ? entity.state : this.hass.formatEntityState(entity));

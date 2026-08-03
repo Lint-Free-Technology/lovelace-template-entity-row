@@ -43,6 +43,13 @@ dashboard:
                   label: name
                 - type: custom:template-entity-row
                   name: "Name for{% if is_state('input_boolean.test_boolean', 'on') %} active {% else %} inactive {% endif %}state"
+                - type: custom:template-entity-row
+                  entity: light.bed_light
+                  name: |
+                    [
+                      { "type": "entity" },
+                      { "type": "text", "text": " is {{ 'active' if is_state('input_boolean.test_boolean', 'on') else 'inactive' }}" }
+                    ]
                 - type: section
                   label: state
                 - type: custom:template-entity-row

@@ -61,6 +61,14 @@ dashboard:
                 - type: custom:template-entity-row
                   entity: light.bed_light
                   name:
+                - type: custom:template-entity-row
+                  entity: light.bed_light
+                  name:
+                    - type: text
+                      text: "The  "
+                    - type: entity
+                    - type: text
+                      text: " is "
                 - type: section
                   label: state
                 - type: custom:template-entity-row
