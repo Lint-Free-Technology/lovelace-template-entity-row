@@ -1,0 +1,43 @@
+id: doc_readme_flexible_naming
+description: README flexible naming screenshot
+view_path: readme-flexible-naming
+
+setup:
+  - type: device_registry_update
+    entity_id: light.bed_light
+    area_name: bedroom
+  - type: ha_service
+    domain: light
+    service: turn_on
+    data:
+      entity_id: light.bed_light
+      brightness_pct: 66
+      color_temp_kelvin: 2631
+    settle_ms: 50
+
+card:
+  type: entities
+  entities:
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      name:
+        - type: area
+        - type: text
+          text: ' - '
+        - type: entity
+    - type: custom:template-entity-row
+      entity: light.bed_light
+      name: |
+        [
+          { "type": "entity" },
+          { 
+            "type": "text",
+            "text": " - {{ (state_attr(config.entity, 'brightness') / 255 * 100) | round }}%"
+          }
+        ]
+
+doc_image:
+  output: docs/source/assets/images/02_readme_flexible_naming.png
+  root: hui-entities-card
+  padding: 16
+  threshold: 0.02

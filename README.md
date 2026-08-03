@@ -48,8 +48,9 @@ entities:
 <!-- markdownlint-disable MD033 -->
 | Name | Type | Options | Description |
 | --- | --- | --- | --- |
-| `icon`<br>`name`<br>`state`<br>`secondary`<br>`image` | string | -| selects what `icon`, `name`, `state`, `secondary_info` text and `entity_picture` to display respectively. |
-| `active` | boolean | `true` / `false`| If this evaluates to `true` or `false`, the icon  will always look active or inactive respectively. This should be used only if **not** using `entity`, otherwise you are best to template `state` to a valid raw (non localized) state for the entity’s device class. This enables `color` to work correctly when setting `entity` but wishing to override `state`. |
+| `icon`<br>`state`<br>`secondary`<br>`image` | string | - | selects what `icon`, `state`, `secondary_info` text and `entity_picture` to display respectively. |
+| `name` | string / object | - | selects what `name` to show. Both string and flexible name object are supported. See [flexible name object](#flexible-name-object). |
+| `active` | boolean | `true` / `false` | If this evaluates to `true` or `false`, the icon  will always look active or inactive respectively. This should be used only if **not** using `entity`, otherwise you are best to template `state` to a valid raw (non localized) state for the entity’s device class. This enables `color` to work correctly when setting `entity` but wishing to override `state`. |
 | `entity` | string | - | If this evaluates to an entity id, `icon`, `name`, `state` and `image` will be taken from that entity unless manually overridden. Specifying an `entity` will also let you use [actions](https://www.home-assistant.io/dashboards/actions/). If you don’t override `state` or `state_display` then the displayed state text will be the localized `entity` state, which includes any units. |
 | `state_display` | string | - | If this is set then the displayed state text will be the text or rendered template as text. If you are using an `entity` but overriding `state`, then `state` needs to be a valid raw (non localized) state for the entity’s device class. Use `state_display` to display any localized state you wish to show. |
 | `condition` | boolean | - | If this is set but does not evaluate to `true`, the row is hidden and not displayed. |
@@ -96,9 +97,41 @@ E.g. `_(component.binary_sensor.entity_component.motion.state.off)` will be repl
 
 To find the available keys you will need to browse the Home Assistant lokalise project. See [Home Assistant Internationalization](https://developers.home-assistant.io/docs/internationalization/) for more information.
 
+### Flexible name object
+
+`name` supports the standard Home Assistant [flexible name object](https://www.home-assistant.io/dashboards/naming/). This can be a string for a simple name, a single flexible name object or a list of flexible name objects.
+
+Flexible name objects can be templated. The template needs to evaluate to a valid [flexible name object](https://www.home-assistant.io/dashboards/naming/) (either a single object or a list/array of objects). Standard YAML object without templates works too.
+
+Flexible naming:
+
+```yaml
+type: entities
+entities:
+  - type: custom:template-entity-row
+    entity: light.bed_light
+    name:
+      - type: area
+      - type: text
+        text: ' - '
+      - type: entity
+  - type: custom:template-entity-row
+    entity: light.bed_light
+    name: |
+      [
+        { "type": "entity" },
+        { 
+          "type": "text",
+          "text": " - {{ int(state_attr(config.entity, 'brightness') / 255 * 100)}}%"
+        }
+      ]
+```
+
+![Flexible naming example](/docs/source/assets/images/02_readme_flexible_naming.png)
+
 ### Actions
 
-Actions are applied to the `info`, `icon` and `state` areas and will take primary actions by default. Actions for `icon` and `state` can be set specifically for each action type. 
+Actions are applied to the `info`, `icon` and `state` areas and will take primary actions by default. Actions for `icon` and `state` can be set specifically for each action type.
 
 - Primary:
   - `tap_action`
