@@ -54,17 +54,21 @@ card:
       entity: input_boolean.test_boolean
       tap_action:
         action: none
-      state_tap_action:
-        action: perform-action
-        perform_action: input_number.increment
-        target:
-          entity_id: input_number.test_number
+      state_tap_action: |
+        {
+          "action": "perform-action",
+          "perform_action": "input_number.increment",
+          "target": {
+            "entity_id": "{{ 'input_number.test_number' }}"
+          }
+        }
     - type: custom:template-entity-row
       entity: input_boolean.test_boolean
       secondary: Tap action
       tap_action:
         action: toggle
-      secondary_action_entity: light.bed_light
+      secondary_action_entity: |
+        {{ "light.bed_light" }}
     - input_number.test_number
     - light.bed_light
 
