@@ -1,3 +1,13 @@
+## [3.0.0-beta.5](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.4...v3.0.0-beta.5) (2026-08-03)
+
+### ⭐ New Features
+
+* Support Home Assistant flexible naming for `name`. ([#53](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/53)) ([daebfa3](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/daebfa3fa9989f098943034e0b77dd7dc2dc21b5)), references [#52](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/52)
+
+### ⚙️ Miscellaneous
+
+* Allow all new config options to accept templates - `icon_*_action`, `state_*_action`, `action_entity`, `secondary_action_entity`. ([c91ba0c](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/c91ba0c8d860a35b64ceb80d69fe4f21c8c7fb01))
+
 ## [3.0.0-beta.4](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.3...v3.0.0-beta.4) (2026-08-02)
 
 ### ⭐ New Features
