@@ -63,7 +63,7 @@ dashboard:
                   entity: light.bed_light
                   name:
                     - type: text
-                      text: "The  "
+                      text: "The "
                     - type: entity
                     - type: text
                       text: " is "
