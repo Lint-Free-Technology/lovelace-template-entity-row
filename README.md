@@ -18,7 +18,7 @@ resources:
 
 ## Usage example
 
-**Note:** This is _not_ a card. It's a row for an [entities](https://www.home-assistant.io/lovelace/entities/).
+**Note:** This is _not_ a card. It's a row for an [entities](https://www.home-assistant.io/lovelace/entities/) card.
 
 ![Quick start example](/docs/source/assets/animations/01_readme_example.gif)
 
@@ -156,22 +156,6 @@ icon_tap_action: # tap on icon will navigate to logbook for sun.sun and sun.next
   action: navigate
   navigation_path: /logbook?entity_id=sun.sun%2Csensor.sun_next_dawn
 ```
-
-## FAQ
-
-### Why does this look weird?
-
-Because you're not using it correctly. This is **not** a card. It's an entity row, and is meant to be used _inside_ the [entities card](https://www.home-assistant.io/lovelace/entities/)
-
-### Why doesn't toggle: true make buttons appear to control my blinds?
-
-Because "toggle" means a toggle. It's the simplest possible way to control an entity, and anything beyond that is not in the scope of this row and will not be added.
-
-### Why is my log flooded with template errors?
-
-This may happen if you use the GUI editor to edit a template based value. Since Home Assistant redraws the row every time you make any change to the configuration in the GUI editor, it will try to render the template every time you push a key.
-Since the template will be invalid for most of the time while you're editing it, you will get a lot of errors. \
-There's unfortunately nothing that can be easily done about this behavior.
 
 ## Visual test scaffold (ha-testcontainer)
 
