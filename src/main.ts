@@ -16,7 +16,8 @@ const OPTIONS = [
   "secondary_name",
   "state",
   "state_display",
-  "condition",
+  "condition", // deprecated, use hidden instead
+  "hidden",
   "image",
   "entity",
   "color",
@@ -99,9 +100,11 @@ class TemplateEntityRow extends LitElement {
   async firstUpdated() {
     const condition = this.config.condition === undefined ? true
       : String(this.config.condition).toLowerCase() === "true";
+    const hidden = (this.config.hidden === undefined || this.config.hidden === "") ? !condition
+      : String(this.config.hidden).toLowerCase() === "true";
     this.dispatchEvent(
       new CustomEvent("row-visibility-changed", 
-        { detail: { row: this, value: condition }, bubbles: true, composed: true }) 
+        { detail: { row: this, value: !hidden }, bubbles: true, composed: true }) 
     );
   }
 
@@ -202,12 +205,16 @@ class TemplateEntityRow extends LitElement {
     if (changedProperties.has("config")) {
       const oldCondition = changedProperties.get("config")?.condition === undefined ? true
         : String(changedProperties.get("config")?.condition).toLowerCase() === "true";
+      const oldHidden = (changedProperties.get("config")?.hidden === undefined || changedProperties.get("config")?.hidden === "") ? !oldCondition
+        : String(changedProperties.get("config")?.hidden).toLowerCase() === "true";
       const newCondition = this.config.condition === undefined ? true
         : String(this.config.condition).toLowerCase() === "true";
-      if (oldCondition !== newCondition) {
+      const newHidden = (this.config.hidden === undefined || this.config.hidden === "") ? !newCondition
+        : String(this.config.hidden).toLowerCase() === "true";
+      if (oldHidden !== newHidden) {
         this.dispatchEvent(
           new CustomEvent("row-visibility-changed", 
-            { detail: { row: this, value: newCondition }, bubbles: true, composed: true }) 
+            { detail: { row: this, value: !newHidden }, bubbles: true, composed: true }) 
         );
       }
 
@@ -291,9 +298,13 @@ class TemplateEntityRow extends LitElement {
         && !stateActive(entity)
       ) ? `--state-icon-color: ${computeCssColor(color)};` : undefined;
 
+    const condition =
+      this.config.condition === undefined ? true :
+      String(this.config.condition).toLowerCase() === "true";
     const hidden =
-      this.config.condition !== undefined &&
-      String(this.config.condition).toLowerCase() !== "true";
+      (this.config.hidden === undefined || this.config.hidden === "") 
+        ? !condition 
+        : String(this.config.hidden).toLowerCase() === "true";
     const show_toggle = this.config.toggle && this.config.entity;
     const show_button = this.config.button;
     const has_action = this._hasAction();
