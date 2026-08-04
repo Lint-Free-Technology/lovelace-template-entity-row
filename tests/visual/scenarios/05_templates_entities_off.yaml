@@ -80,8 +80,11 @@ dashboard:
                 - type: section
                   label: condition
                 - type: custom:template-entity-row
-                  name: conditional
+                  name: conditional (deprecated condition)
                   condition: "{{is_state('input_boolean.test_boolean', 'on')}}"
+                - type: custom:template-entity-row
+                  name: conditional (hidden)
+                  hidden: "{{is_state('input_boolean.test_boolean', 'off')}}"
                 - type: section
                   label: color
                 - type: custom:template-entity-row
