@@ -31,7 +31,10 @@ const OPTIONS = [
   "state_hold_action",
   "state_double_tap_action",
   "action_entity",
-  "secondary_action_entity"
+  "secondary_action_entity",
+  "icon_action_entity",
+  "state_action_entity",
+  "color_inactive",
 ];
 
 const LOCALIZE_PATTERN = /_\([^)]*\)/g;
