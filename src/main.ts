@@ -98,16 +98,10 @@ class TemplateEntityRow extends LitElement {
   }
 
   async firstUpdated() {
-    const condition =
-      this.config.condition === undefined
-        ? true
-        : String(this.config.condition).trim().toLowerCase() === "true";
-    const hiddenStr =
-      this.config.hidden === undefined
-        ? undefined
-        : String(this.config.hidden).trim().toLowerCase();
-    const hidden =
-      hiddenStr === undefined ? !condition : hiddenStr === "true" ? true : hiddenStr === "false" ? false : true;
+    const condition = this.config.condition === undefined ? true
+      : String(this.config.condition).toLowerCase() === "true";
+    const hidden = this.config.hidden === undefined ? !condition
+      : String(this.config.hidden).toLowerCase() === "true";
     this.dispatchEvent(
       new CustomEvent("row-visibility-changed", 
         { detail: { row: this, value: !hidden }, bubbles: true, composed: true }) 
