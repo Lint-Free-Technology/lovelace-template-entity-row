@@ -137,7 +137,7 @@ entities:
 
 ### Secondary object config
 
-`secondary` can either be a sting or a secondary object config, which is a list of secondary options which will be displayed in order concatenated by `.`. Any timestamp based option will show in the format set by `time_format` which can be set to supported Home Assistant entities [`time_format`](https://www.home-assistant.io/dashboards/entities/#time_format).
+`secondary` can either be a string or a secondary object config, which is a list of secondary options which will be displayed in order concatenated by `.`. Any timestamp based option will show in the format set by `time_format` which can be set to supported Home Assistant entities [`time_format`](https://www.home-assistant.io/dashboards/entities/#time_format).
 
 `secondary` option list can be templated. The template needs to evaluate to a valid list. Standard YAML list without templates works too.
 
