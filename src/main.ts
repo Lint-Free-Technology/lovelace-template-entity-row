@@ -211,16 +211,12 @@ class TemplateEntityRow extends LitElement {
     if (changedProperties.has("config")) {
       const oldCondition = changedProperties.get("config")?.condition === undefined ? true
         : String(changedProperties.get("config")?.condition).toLowerCase() === "true";
-      const oldHiddenStr = changedProperties.get("config")?.hidden === undefined
-        ? undefined
-        : String(changedProperties.get("config")?.hidden).trim().toLowerCase();
-      const oldHidden = oldHiddenStr === undefined ? !oldCondition : oldHiddenStr === "true" ? true : oldHiddenStr === "false" ? false : true;
+      const oldHidden = changedProperties.get("config")?.hidden === undefined ? !oldCondition
+        : String(changedProperties.get("config")?.hidden).toLowerCase() === "true";
       const newCondition = this.config.condition === undefined ? true
         : String(this.config.condition).toLowerCase() === "true";
-      const newHiddenStr = this.config.hidden === undefined
-        ? undefined
-        : String(this.config.hidden).trim().toLowerCase();
-      const newHidden = newHiddenStr === undefined ? !newCondition : newHiddenStr === "true" ? true : newHiddenStr === "false" ? false : true;
+      const newHidden = this.config.hidden === undefined ? !newCondition
+        : String(this.config.hidden).toLowerCase() === "true";
       if (oldHidden !== newHidden) {
         this.dispatchEvent(
           new CustomEvent("row-visibility-changed", 
@@ -311,12 +307,9 @@ class TemplateEntityRow extends LitElement {
     const condition =
       this.config.condition === undefined ? true :
       String(this.config.condition).toLowerCase() === "true";
-    const hiddenStr =
-      this.config.hidden === undefined
-        ? undefined
-        : String(this.config.hidden).trim().toLowerCase();
     const hidden =
-      hiddenStr === undefined ? !condition : hiddenStr === "true" ? true : hiddenStr === "false" ? false : true;
+      this.config.hidden === undefined ? 
+        !condition : String(this.config.hidden).toLowerCase() === "true";
     const show_toggle = this.config.toggle && this.config.entity;
     const show_button = this.config.button;
     const has_action = this._hasAction();
