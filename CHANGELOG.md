@@ -1,3 +1,13 @@
+## [3.0.0-beta.6](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.5...v3.0.0-beta.6) (2026-08-04)
+
+### ⭐ New Features
+
+* Support `secondary` info items from main `entity` or `secondary_entity` with flexible `secondary_name` falling back to `name`. ([#54](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/54)) ([dd3a547](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/dd3a54741ae7232886eb4498017bfe639fa9d167)), closes [#50](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/50)
+
+### ⚙️ Miscellaneous
+
+* Allow all new config options to accept templates - `icon_action_entity`, `state_action_entity`, `color_inactive`. ([957cef1](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/957cef1ef8afe2caa1a6f061d4041b9dfc6c1379))
+
 ## [3.0.0-beta.5](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.4...v3.0.0-beta.5) (2026-08-03)
 
 ### ⭐ New Features
