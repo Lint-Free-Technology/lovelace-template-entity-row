@@ -18,6 +18,14 @@ setup:
       color_temp_kelvin: 2631
     settle_ms: 50
   - type: ha_service
+    domain: light
+    service: turn_on
+    data:
+      entity_id: light.ceiling_lights
+      brightness: 255
+      color_temp_kelvin: 2631
+    settle_ms: 50
+  - type: ha_service
     domain: input_number
     service: set_value
     data:
@@ -67,10 +75,21 @@ card:
       secondary: Tap action
       tap_action:
         action: toggle
-      secondary_action_entity: |
+      secondary_entity: |
         {{ "light.bed_light" }}
+    - type: custom:template-entity-row
+      entity: input_boolean.test_boolean
+      secondary: Tap action
+      tap_action:
+        action: toggle
+      secondary_action_entity: |
+        {{ "light.ceiling_lights" }}
+      secondary:
+        - name
+        - state
     - input_number.test_number
     - light.bed_light
+    - light.ceiling_lights
 
 interactions:
   - type: click
@@ -84,6 +103,10 @@ interactions:
   - type: click
     root: "#states div:nth-of-type(6) template-entity-row"
     selector: ".secondary"
+    settle_ms: 50
+  - type: click
+    root: "#states div:nth-of-type(7) template-entity-row"
+    selector: ".secondary state-display"
     settle_ms: 50
 
 assertions:
@@ -163,11 +186,16 @@ assertions:
     property: "cursor"
     expected: "pointer"
   - type: text_equals
-    root: "#states div:nth-of-type(7) hui-input-number-entity-row"
+    root: "#states div:nth-of-type(8) hui-input-number-entity-row"
     selector: ".state"
     expected: "3"
   - type: object_property_text_equals
-    root: "#states div:nth-of-type(8) hui-toggle-entity-row"
+    root: "#states div:nth-of-type(9) hui-toggle-entity-row"
+    selector: "ha-entity-toggle"
+    property: "_isOn"
+    expected: "false"
+  - type: object_property_text_equals
+    root: "#states div:nth-of-type(10) hui-toggle-entity-row"
     selector: "ha-entity-toggle"
     property: "_isOn"
     expected: "false"

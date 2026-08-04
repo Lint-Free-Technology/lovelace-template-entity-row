@@ -3,11 +3,20 @@ description: Entity based options with entities off
 view_path: entity-based-entities-off
 
 setup:
+  - type: device_registry_update
+    entity_id: light.bed_light
+    area_name: bedroom
   - type: ha_service
     domain: light
     service: turn_off
     data:
       entity_id: light.bed_light
+    settle_ms: 50
+  - type: ha_service
+    domain: light
+    service: turn_off
+    data:
+      entity_id: light.ceiling_lights
     settle_ms: 50
   - type: ha_service
     domain: input_boolean
@@ -63,10 +72,10 @@ dashboard:
                   entity: light.bed_light
                   name:
                     - type: text
-                      text: "The "
+                      text: "The"
                     - type: entity
                     - type: text
-                      text: " is "
+                      text: "is"
                 - type: section
                   label: state
                 - type: custom:template-entity-row
@@ -85,6 +94,26 @@ dashboard:
                 - type: custom:template-entity-row
                   entity: light.bed_light
                   secondary: secondary
+                - type: custom:template-entity-row
+                  entity: light.bed_light
+                  secondary:
+                    - name
+                    - state
+                    - brightness
+                - type: custom:template-entity-row
+                  entity: light.bed_light
+                  secondary_entity: light.ceiling_lights
+                  secondary_name: |
+                    [
+                      { "type": "entity" },
+                      { 
+                        "type": "text",
+                        "text": "{{ (state_attr(config.secondary_entity, 'brightness') | float(0) / 255 * 100) | round }}%"
+                      }
+                    ]
+                  secondary:
+                    - name
+                    - state
                 - type: section
                   label: image
                 - type: custom:template-entity-row

@@ -48,10 +48,14 @@ entities:
 <!-- markdownlint-disable MD033 -->
 | Name | Type | Options | Description |
 | --- | --- | --- | --- |
-| `icon`<br>`state`<br>`secondary`<br>`image` | string | - | selects what `icon`, `state`, `secondary_info` text and `entity_picture` to display respectively. |
-| `name` | string / object | - | selects what `name` to show. Both string and flexible name object are supported. See [flexible name object](#flexible-name-object). |
+| `icon`<br>`state`<br>`image` | string | - | selects what `icon`, `state` and `entity_picture` to display respectively. |
+| `name` | string / object | - | If set selects what `name` to show. Both string and flexible name object are supported. See [flexible name object](#flexible-name-object). If not set defaults to friendly name of `entity` |
+| `secondary_name` | string / object | - | selects what name will show when `- name` is used for `secondary` when a secondary object config is used. Both string and flexible name object are supported. See [flexible name object](#flexible-name-object). If not set defaults to friendly name of `secondary_entity` if set, otherwise friendly name of `entity`. |
 | `active` | boolean | `true` / `false` | If this evaluates to `true` or `false`, the icon  will always look active or inactive respectively. This should be used only if **not** using `entity`, otherwise you are best to template `state` to a valid raw (non localized) state for the entity’s device class. This enables `color` to work correctly when setting `entity` but wishing to override `state`. |
 | `entity` | string | - | If this evaluates to an entity id, `icon`, `name`, `state` and `image` will be taken from that entity unless manually overridden. Specifying an `entity` will also let you use [actions](https://www.home-assistant.io/dashboards/actions/). If you don’t override `state` or `state_display` then the displayed state text will be the localized `entity` state, which includes any units. |
+| `secondary_entity` | string | - | entity id used for `secondary_name` and `secondary` config. If not set then defaults to `entity`. |
+| `secondary` | string / object | - | If string then this will show as secondary information. If object then will display information as per [secondary object config](#secondary-object-config). |
+| `time_format` | string / object | - | When set controls the time format of any timestamp `secondary` config options. See Home Assistant [`time_format` options](https://www.home-assistant.io/dashboards/entities/#time_format) |
 | `state_display` | string | - | If this is set then the displayed state text will be the text or rendered template as text. If you are using an `entity` but overriding `state`, then `state` needs to be a valid raw (non localized) state for the entity’s device class. Use `state_display` to display any localized state you wish to show. |
 | `condition` | boolean | - | If this is set but does not evaluate to `true`, the row is hidden and not displayed. |
 | `toggle` | boolean | `true` / `false` | If this evaluates to `true` a toggle is shown instead of the state. The toggle is connected to the `entity`. This will only show a toggle, nothing else. No sliders, no dropdowns, no media controls. `toggle` means Toggle. NOTE: Both `toggle` and `button` cannot be set together. |
@@ -62,7 +66,7 @@ entities:
 | `nested_templates` | boolean | `true` / `false` | If set to `true`, enables nested bracket syntax (`[[`/`]]`) as an alternative to the standard `{{`/`}}` Jinja2 delimiters. This is useful in if using template entity in a card that uses Jinja templates itself. |
 | `tap_action`<br>`hold_action`<br>`double_tap_action` | object | Action config | Primary actions. See [Actions](#actions). |
 | `action_entity` | string | - | If set, overrides the entity id used for `tap_action`, `hold_action` and `double_tap_action`. See [Actions](#actions) |
-| `secondary_action_entity` | string | - | If set, overrides the entity id used for `tap_action`, `hold_action` and `double_tap_action` when the action is executed on the `secondary` area. This allows the primary actions (e.g. `more-info`, `toggle`) to target the main entity while the `secondary` area targets a different entity. See [Actions](#actions) |
+| `secondary_action_entity` | string | - | If set, overrides the entity id used for `tap_action`, `hold_action` and `double_tap_action` when the action is executed on the `secondary` area. This allows the primary actions (e.g. `more-info`, `toggle`) to target the main entity while the `secondary` area targets a different entity. If not set then will default to `secondary_entity` if set, otherwise `entity`. See [Actions](#actions) |
 | `icon_tap_action`<br>`icon_hold_action`<br>`icon_double_tap_action` | object | Action config | Icon actions. See [Actions](#actions). |
 | `icon_action_entity` | string | - | If set, overrides the entity id used for `icon_tap_action`, `icon_hold_action` and `icon_double_tap_action`. See [Actions](#actions) |
 | `state_tap_action`<br>`state_hold_action`<br>`state_double_tap_action` | object | Action config | State actions. See [Actions](#actions). |
@@ -110,6 +114,7 @@ type: entities
 entities:
   - type: custom:template-entity-row
     entity: light.bed_light
+    # Standard yaml configuration - No templates allowed
     name:
       - type: area
       - type: text
@@ -117,6 +122,7 @@ entities:
       - type: entity
   - type: custom:template-entity-row
     entity: light.bed_light
+    # JSON return format
     name: |
       [
         { "type": "entity" },
@@ -128,6 +134,67 @@ entities:
 ```
 
 ![Flexible naming example](/docs/source/assets/images/02_readme_flexible_naming.png)
+
+### Secondary object config
+
+`secondary` can either be a string or a secondary object config, which is a list of secondary options which will be displayed in order concatenated by `.`. Any timestamp based option will show in the format set by `time_format` which can be set to supported Home Assistant entities [`time_format`](https://www.home-assistant.io/dashboards/entities/#time_format).
+
+`secondary` option list can be templated. The template needs to evaluate to a valid list. Standard YAML list without templates works too.
+
+`secondary` options:
+
+- name
+- state
+- device_name
+- area_name
+- floor_name
+- last_changed
+- last_updated
+- last_triggered (if available)
+- _any attribute_
+
+The following `secondary` options will be dynamically updated.
+
+- `update.*`
+  - install_status
+- `timer.*`
+  - remaining_time
+
+- _NOTE: secondary object config will be coming to Home Assistant inbuilt rows in 2026.9. Once available in 2026.9, `entity-id` will also be a supported `secondary` option. Also coming in 2026.9 will be timestamp tooltips for any timestamp based option.
+
+Secondary options:
+
+```yaml
+type: entities
+entities:
+  - type: custom:template-entity-row
+    entity: sun.sun
+    secondary_name: Next dawn
+    secondary:
+      - name
+      - next_dawn
+  - type: custom:template-entity-row
+    entity: sun.sun
+    secondary_name: |
+      {{ "Next dusk" if states(config.entity) == 'above_horizon' else "Next dawn" }}
+    secondary: |
+      [
+        "name",
+        "{{ 'next_dusk' if states(config.entity) == 'above_horizon' else 'next_dawn' }}"
+      ]
+    time_format:
+      type: time
+      style: short
+  - type: custom:template-entity-row
+    entity: sun.sun
+    secondary_entity: light.bed_light
+    secondary:
+      - name
+      - state
+      - brightness
+```
+
+![Secondary options example](docs/source/assets/images/03_readme_secondary_options.png)
 
 ### Actions
 
@@ -150,6 +217,8 @@ An override can be set for entity if for actions that operate on the config enti
 
 - Primary:
   - `action_entity` if set, otherwise main config `entity`
+  - Secondary area:
+    - `secondary_action_entity` if set, then `secondary_entity` if set, then `action_entity` if set, otherwise main config `entity`.
 - Icon:
   - `icon_action_entity` if set, then `action_entity` if set, otherwise main config `entity`
 - State:
@@ -182,9 +251,9 @@ Override actions:
 ```yaml
 type: custom:template-entity-row
 entity: sun.sun
-secondary_action_entity: sensor.sun_next_dawn # tap on secondary line will show more-info for sensor.sun_next_dawn
+secondary_entity: sensor.sun_next_dawn # tap on secondary line will show more-info for sensor.sun_next_dawn
 secondary: |
-  Next dawn in {{ time_until(as_datetime(states('sensor.sun_next_dawn'))) }}
+  Next dawn in {{ time_until(as_datetime(states(config.secondary_entity))) }}
 icon_tap_action: # tap on icon will navigate to logbook for sun.sun and sun.next_dawn
   action: navigate
   navigation_path: /logbook?entity_id=sun.sun%2Csensor.sun_next_dawn
