@@ -1,3 +1,9 @@
+## [3.0.0-beta.7](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.6...v3.0.0-beta.7) (2026-08-04)
+
+### ⭐ New Features
+
+* Add `hidden` config which deprecates the poorly named `condition`. `condition` continues to work. Update to `hidden` when convenient. NOTE: `hidden` is opposite logic to `condition`. ([#55](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/55)) ([e3224d0](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/e3224d0d70fdacaee567e946ed63d8c26c270578))
+
 ## [3.0.0-beta.6](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.5...v3.0.0-beta.6) (2026-08-04)
 
 ### ⭐ New Features
