@@ -13,6 +13,7 @@ const OPTIONS = [
   "active",
   "name",
   "secondary",
+  "secondary_name",
   "state",
   "state_display",
   "condition",
@@ -31,7 +32,12 @@ const OPTIONS = [
   "state_hold_action",
   "state_double_tap_action",
   "action_entity",
-  "secondary_action_entity"
+  "secondary_entity",
+  "secondary_action_entity",
+  "icon_action_entity",
+  "state_action_entity",
+  "color_inactive",
+  "time_format",
 ];
 
 const LOCALIZE_PATTERN = /_\([^)]*\)/g;
@@ -103,6 +109,9 @@ class TemplateEntityRow extends LitElement {
     let actionEntity;
     if (part) {
       actionEntity = this.config[`${part}_action_entity`];
+      if (!actionEntity && part === "secondary") {
+        actionEntity = this.config[`secondary_entity`];
+      }
     }
     return actionEntity ?? this.config[`action_entity`] ?? this.config.entity;
   }
@@ -153,7 +162,11 @@ class TemplateEntityRow extends LitElement {
     config.tap_action = this._actionConfig();
     config.hold_action = this._actionConfig("", "hold");
     config.double_tap_action = this._actionConfig("", "double_tap");
-    if (this._infoActionElement?.classList.contains("secondary")) {
+    // A tap on the secondary area is either on `div.secondary` or `div.secondary state-display`
+    if (
+      this._infoActionElement?.classList.contains("secondary") || 
+      this._infoActionElement?.parentElement?.classList.contains("secondary")
+    ) {
       config.entity = this._actionEntity("secondary");
     } else {
       config.entity = this._actionEntity();
@@ -246,11 +259,18 @@ class TemplateEntityRow extends LitElement {
       typeof (this.hass as any).formatEntityName === "function"
         ? (this.hass as any).formatEntityName(entity, this.config.name)
         : this.config.name ?? entity?.attributes?.friendly_name ?? entity?.entity_id;
-    const secondary = this.config.secondary;
-    entity.state = this.config.state ?? base?.state;
+    const secondaryEntityId = this.config.secondary_entity ?? this.config.entity;
+    const secondaryEntity = secondaryEntityId ? this.hass.states[secondaryEntityId.trim()] ?? entity : entity;
+    const secondaryName = typeof (this.hass as any).formatEntityName === "function"
+        ? (this.hass as any).formatEntityName(secondaryEntity, this.config.secondary_name)
+        : this.config.secondary_name ?? secondaryEntity?.attributes?.friendly_name ?? secondaryEntity?.entity_id;
+    const secondaryIsText = typeof this.config.secondary === "string";
+    // stateObj for state-badge cannot have undefined as will cause errors so we default to ""
+    entity.state = this.config.state ?? base?.state ?? "";
     const stateDisplay = this.config.state_display ?? (this.config.state ? entity.state : this.hass.formatEntityState(entity));
     const migratedStateColor = this.config.state_color === true ? "state" : this.config.state_color == false ? "none" : undefined;
-    const color = this.config.color ?? migratedStateColor ?? "state";
+    // if our stateObj state is "" this is no state so we use "none" for color when stateObj state is "" otherwise icon be colored
+    const color = this.config.color ?? migratedStateColor ?? (entity.state !== "" ? "state" : "none");
 
     const active = this.config.active !== undefined ? this.config.active : undefined;
     if (active) {
@@ -297,7 +317,20 @@ class TemplateEntityRow extends LitElement {
           @action="${this._infoActionHandler}"
         >
           ${name}
-          <div class="secondary">${secondary}</div>
+          <div class="secondary">
+            ${secondaryIsText
+              ? this.config.secondary
+              : this.config.secondary !== undefined
+                ? html`<state-display
+                  .hass=${this.hass}
+                  .stateObj=${secondaryEntity}
+                  .name=${secondaryName}
+                  .content=${this.config.secondary}
+                  .timeFormat=${this.config.time_format}
+                  timestamp-tooltip
+                ></state-display>`
+                : html`` }
+          </div>
         </div>
         <div
           @action="${!show_toggle && !show_button ? this._stateActionHandler : undefined}"

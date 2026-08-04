@@ -12,6 +12,14 @@ setup:
       color_temp_kelvin: 2631
     settle_ms: 50
   - type: ha_service
+    domain: light
+    service: turn_on
+    data:
+      entity_id: light.ceiling_lights
+      brightness: 255
+      color_temp_kelvin: 2631
+    settle_ms: 50
+  - type: ha_service
     domain: input_boolean
     service: turn_on
     data:
@@ -65,10 +73,10 @@ dashboard:
                   entity: light.bed_light
                   name:
                     - type: text
-                      text: "The "
+                      text: "The"
                     - type: entity
                     - type: text
-                      text: " is "
+                      text: "is"
                 - type: section
                   label: state
                 - type: custom:template-entity-row
@@ -87,6 +95,26 @@ dashboard:
                 - type: custom:template-entity-row
                   entity: light.bed_light
                   secondary: secondary
+                - type: custom:template-entity-row
+                  entity: light.bed_light
+                  secondary:
+                    - name
+                    - state
+                    - brightness
+                - type: custom:template-entity-row
+                  entity: light.bed_light
+                  secondary_entity: light.ceiling_lights
+                  secondary_name: |
+                    [
+                      { "type": "entity" },
+                      { 
+                        "type": "text",
+                        "text": "{{ (state_attr(config.secondary_entity, 'brightness') | float(0) / 255 * 100) | round }}%"
+                      }
+                    ]
+                  secondary:
+                    - name
+                    - state
                 - type: section
                   label: image
                 - type: custom:template-entity-row

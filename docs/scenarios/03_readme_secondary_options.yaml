@@ -1,0 +1,48 @@
+id: doc_readme_secondary_options
+description: README secondary options screenshot
+view_path: readme-secondary-options
+
+setup:
+  - type: ha_service
+    domain: light
+    service: turn_on
+    data:
+      entity_id: light.bed_light
+      brightness_pct: 66
+      color_temp_kelvin: 2631
+    settle_ms: 50
+
+card:
+  type: entities
+  entities:
+    - type: custom:template-entity-row
+      entity: sun.sun
+      secondary_name: Next dawn
+      secondary:
+        - name
+        - next_dawn
+    - type: custom:template-entity-row
+      entity: sun.sun
+      secondary_name: |
+        {{ "Next dusk" if states(config.entity) == 'above_horizon' else "Next dawn" }}
+      secondary: |
+        [
+          "name",
+          "{{ 'next_dusk' if states(config.entity) == 'above_horizon' else 'next_dawn' }}"
+        ]
+      time_format:
+        type: time
+        style: short
+    - type: custom:template-entity-row
+      entity: sun.sun
+      secondary_entity: light.bed_light
+      secondary:
+        - name
+        - state
+        - brightness
+
+doc_image:
+  output: docs/source/assets/images/03_readme_secondary_options.png
+  root: hui-entities-card
+  padding: 16
+  threshold: 0.02
