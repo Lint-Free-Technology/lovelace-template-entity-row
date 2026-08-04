@@ -2,6 +2,7 @@ id: templates_entities_on
 description: Template rendering with entities on
 view_path: templates-entities-on
 
+# turn test_boolean on, then off, then on again to test the conditional rendering of template-entity-row
 setup:
   - type: ha_service
     domain: light
@@ -17,6 +18,16 @@ setup:
     data:
       entity_id: input_boolean.test_boolean
     settle_ms: 50
+  - type: ha_service
+    domain: input_boolean
+    service: turn_off
+    data:
+      entity_id: input_boolean.test_boolean
+  - type: ha_service
+    domain: input_boolean
+    service: turn_on
+    data:
+      entity_id: input_boolean.test_boolean
   - type: ha_service
     domain: switch
     service: turn_on
