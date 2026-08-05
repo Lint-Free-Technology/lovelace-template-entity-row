@@ -1,3 +1,65 @@
+## [3.0.0-beta.7](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.6...v3.0.0-beta.7) (2026-08-04)
+
+### ⭐ New Features
+
+* Add `hidden` config which deprecates the poorly named `condition`. `condition` continues to work. Update to `hidden` when convenient. NOTE: `hidden` is opposite logic to `condition`. ([#55](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/55)) ([e3224d0](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/e3224d0d70fdacaee567e946ed63d8c26c270578))
+
+## [3.0.0-beta.6](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.5...v3.0.0-beta.6) (2026-08-04)
+
+### ⭐ New Features
+
+* Support `secondary` info items from main `entity` or `secondary_entity` with flexible `secondary_name` falling back to `name`. ([#54](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/54)) ([dd3a547](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/dd3a54741ae7232886eb4498017bfe639fa9d167)), closes [#50](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/50)
+
+### ⚙️ Miscellaneous
+
+* Allow all new config options to accept templates - `icon_action_entity`, `state_action_entity`, `color_inactive`. ([957cef1](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/957cef1ef8afe2caa1a6f061d4041b9dfc6c1379))
+
+## [3.0.0-beta.5](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.4...v3.0.0-beta.5) (2026-08-03)
+
+### ⭐ New Features
+
+* Support Home Assistant flexible naming for `name`. ([#53](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/53)) ([daebfa3](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/daebfa3fa9989f098943034e0b77dd7dc2dc21b5)), references [#52](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/52)
+
+### ⚙️ Miscellaneous
+
+* Allow all new config options to accept templates - `icon_*_action`, `state_*_action`, `action_entity`, `secondary_action_entity`. ([c91ba0c](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/c91ba0c8d860a35b64ceb80d69fe4f21c8c7fb01))
+
+## [3.0.0-beta.4](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.3...v3.0.0-beta.4) (2026-08-02)
+
+### ⭐ New Features
+
+* Allow action overrides for icon and state areas. Allow action entity override for secondary, icon and state areas. ([#49](https://github.com/lint-free-technology/lovelace-template-entity-row/issues/49)) ([d88b2a1](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/d88b2a13c33de7e752e741574e8d9129baa8aefd))
+
+## [3.0.0-beta.3](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.2...v3.0.0-beta.3) (2026-08-02)
+
+### 🐞 Bug Fixes
+
+* Correctly set `color` default to `state` when neither `state_color` or `color` is set. ([940df01](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/940df01c313a4038dca6f9e0286774cc995b152f))
+
+## [3.0.0-beta.2](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2026-07-28)
+
+### ⚙️ Miscellaneous
+
+* Set minimum HA Version to 2026.8.0.dev0 so HACS will allow against dev builds and greater. ([5e7dfca](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/5e7dfca4640fb2ca341d343239bd3bbb1836e97d))
+
+## [3.0.0-beta.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.2.1...v3.0.0-beta.1) (2026-07-28)
+
+### ⚠ BREAKING CHANGES
+
+* Home Assistant 2026.8.0 or greater required.
+
+### ⭐ New Features
+
+* Add `color_inactive` config to allow for `color` to be set when `state` is inactive. Allows for compatability for coloring icon when inactive after Home Assistant 2026.8.0 ([b28f4c0](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/b28f4c031c772d818dd17b0acb713695fa1a125b))
+
+### 📦 Dependency Upgrades
+
+* Update to Typescript v7, use esbuild ([8579065](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/8579065546ff9f2653ba2185c7fd583571f97b68))
+
+### ⚙️ Miscellaneous
+
+* Migrate `state_color` to `color` for generic row config. `state_color: true` is migrated to `color: state`. `state_color: false` is migrated to `color: none`. Default is `color: state`. These changes reflect changes in Home Assistant 2026.8.0. ([5320320](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/5320320799d6dbb1bec2f1979e91732de7bedefb))
+
 ## [2.2.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.2.0...v2.2.1) (2026-05-18)
 
 ### ⚙️ Miscellaneous

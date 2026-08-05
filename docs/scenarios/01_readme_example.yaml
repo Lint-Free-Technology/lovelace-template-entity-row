@@ -9,6 +9,7 @@ setup:
     data:
       entity_id: light.bed_light
       brightness: 255
+      color_temp_kelvin: 2631
     settle_ms: 50
   - type: ha_service
     domain: input_boolean
@@ -41,6 +42,7 @@ dashboard:
               state: "{% if is_state('input_boolean.test_boolean', 'on')%}"
               active: "{{ is_state('input_boolean.test_boolean', 'on') }}"
               color: "{% if is_state('input_boolean.test_boolean', 'on')%} green {% else %} red {% endif %}"
+              color_inactive: true
 
 doc_animation:
   output: docs/source/assets/animations/01_readme_example.gif

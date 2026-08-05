@@ -2,6 +2,7 @@ id: templates_entities_off
 description: Template rendering with entities off
 view_path: templates-entities-off
 
+# turn test_boolean off, then on, then off again to test the conditional rendering of template-entity-row
 setup:
   - type: ha_service
     domain: light
@@ -14,6 +15,24 @@ setup:
     service: turn_off
     data:
       entity_id: input_boolean.test_boolean
+    settle_ms: 50
+  - type: ha_service
+    domain: input_boolean
+    service: turn_on
+    data:
+      entity_id: input_boolean.test_boolean
+    settle_ms: 50
+  - type: ha_service
+    domain: input_boolean
+    service: turn_off
+    data:
+      entity_id: input_boolean.test_boolean
+    settle_ms: 50
+  - type: ha_service
+    domain: switch
+    service: turn_off
+    data:
+      entity_id: switch.decorative_lights
     settle_ms: 50
 
 dashboard:
@@ -37,6 +56,13 @@ dashboard:
                   label: name
                 - type: custom:template-entity-row
                   name: "Name for{% if is_state('input_boolean.test_boolean', 'on') %} active {% else %} inactive {% endif %}state"
+                - type: custom:template-entity-row
+                  entity: light.bed_light
+                  name: |
+                    [
+                      { "type": "entity" },
+                      { "type": "text", "text": " is {{ 'active' if is_state('input_boolean.test_boolean', 'on') else 'inactive' }}" }
+                    ]
                 - type: section
                   label: state
                 - type: custom:template-entity-row
@@ -67,10 +93,16 @@ dashboard:
                 - type: section
                   label: condition
                 - type: custom:template-entity-row
-                  name: conditional
+                  name: conditional (deprecated condition)
                   condition: "{{is_state('input_boolean.test_boolean', 'on')}}"
+                - type: custom:template-entity-row
+                  name: conditional (hidden)
+                  hidden: "{{is_state('input_boolean.test_boolean', 'off')}}"
                 - type: section
                   label: color
+                - type: custom:template-entity-row
+                  icon: mdi:cog
+                  entity: switch.decorative_lights
                 - type: custom:template-entity-row
                   icon: mdi:cog
                   color: "rgb{{state_attr('light.bed_light', 'rgb_color')}}"
@@ -87,4 +119,4 @@ dashboard:
 assertions:
   - type: snapshot
     name: 05_templates_entities_off
-    threshold: 0.02
+    threshold: 0.01
