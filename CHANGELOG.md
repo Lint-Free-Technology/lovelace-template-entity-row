@@ -1,3 +1,9 @@
+## [3.0.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0...v3.0.1) (2026-10-01)
+
+### 📦 Dependency Upgrades
+
+* Update dependencies - js-yaml, rollup, babel, semantic-release ([1d87e10](https://github.com/lint-free-technology/lovelace-template-entity-row/commit/1d87e1072ae31779583e70e5f0a668dd757793b2))
+
 ## [3.0.0](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v2.2.1...v3.0.0) (2026-08-05)
 
 ### ⚠ BREAKING CHANGES
