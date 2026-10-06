@@ -1,3 +1,10 @@
+### [3.0.2](https://github.com/Lint-Free-Technology/lovelace-template-entity-row/compare/v3.0.1...v3.0.2) (2026-10-06)
+
+
+### ⚙️ Miscellaneous
+
+* Migrate release workflow from semantic-release to dedicated GitHub actions ([e115fc5](https://github.com/Lint-Free-Technology/lovelace-template-entity-row/commit/e115fc59b3a2654f4f4fc0534c2cc0cb90ba4d19))
+
 ## [3.0.1](https://github.com/lint-free-technology/lovelace-template-entity-row/compare/v3.0.0...v3.0.1) (2026-10-01)
 
 ### 📦 Dependency Upgrades
