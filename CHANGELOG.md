@@ -1,3 +1,11 @@
+### [3.0.3](https://github.com/Lint-Free-Technology/lovelace-template-entity-row/compare/v3.0.2...v3.0.3) (2026-11-05)
+
+
+### ⚙️ Miscellaneous
+
+* Dependency updates ([a8c7268](https://github.com/Lint-Free-Technology/lovelace-template-entity-row/commit/a8c726886e469130221b04cd8f8ca13264baacf9))
+* Update readme to Marketplace and test version matching HA 2026.11.0 ([fd97338](https://github.com/Lint-Free-Technology/lovelace-template-entity-row/commit/fd97338415891fe893969d15f3c78d63de1348b6))
+
 ### [3.0.2](https://github.com/Lint-Free-Technology/lovelace-template-entity-row/compare/v3.0.1...v3.0.2) (2026-10-06)
 
 
